@@ -12,10 +12,10 @@ CREATE TABLE IF NOT EXISTS Division (
 CREATE TABLE IF NOT EXISTS Member
 (
     ArcheryAustraliaID NVARCHAR(255) PRIMARY KEY NOT NULL,
-    FirstName NVARCHAR(255),
-    DateOfBirth DATE,
-    Gender BOOL,
-    DefaultDivision NVARCHAR(255),
+    FirstName NVARCHAR(255) NOT NULL,
+    DateOfBirth DATE NOT NULL,
+    Gender BOOL NOT NULL,
+    DefaultDivision NVARCHAR(255) NOT NULL,
     FOREIGN KEY (DefaultDivision) REFERENCES Division(DivisionID)
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS Round (
     EventID INT NOT NULL,
     Division NVARCHAR(255) NOT NULL,
     Class NVARCHAR(255) NOT NULL,
-    Gender BOOL,
+    Gender BOOL NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Event(EventID),
     FOREIGN KEY (Division) REFERENCES Division(DivisionID),
     FOREIGN KEY (Class) REFERENCES Class(ClassID)
