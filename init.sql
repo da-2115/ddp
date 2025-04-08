@@ -26,8 +26,19 @@ CREATE TABLE End
     EndID INT NOT NULL,
     RangeID INT NOT NULL,
     ArcheryAustraliaID NVARCHAR( 255 ) NOT NULL,
-    TargetNumber INT,
+    FinalScore INT,
+    PRIMARY KEY (EndID),
+    FOREIGN KEY (RangeID) REFERENCES Range(RangeID),
+    FOREIGN KEY (ArcheryAustraliaID) REFERENCES Member(ArcheryAustraliaID)
+);
+
+CREATE TABLE Score
+(
+    ScoreID INT NOT NULL,
+    EndID INT NOT NULL,
+    ArrowNumber INT,
     Score INT,
-    X INT
+    PRIMARY KEY (ScoreID),
+    FOREIGN KEY (EndID) REFERENCES End(EndID)
 );
 
