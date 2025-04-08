@@ -4,14 +4,24 @@ USE DATABASE ARCHERYDB;
 CREATE TABLE Member
 (
     ArcheryAustraliaID NVARCHAR( 255 ) NOT NULL,
-    FirstName NVARCHAR( 255 ) NOT NULL,
-    DateOfBirth DATE NOT NULL,
-    Gender BOOL NOT NULL,
-    DefaultBowType NVARCHAR( 255 ) NOT NULL,
+    FirstName NVARCHAR( 255 ),
+    DateOfBirth DATE,
+    Gender BOOL,
+    DefaultBowType NVARCHAR( 255 ),
     PRIMARY KEY ( ArcheryAustraliaID )
 );
 
-CREATE TABLE PracticeEvent
+CREATE TABLE Round (
+    RoundID INT PRIMARY KEY,
+    EventID INT,
+    Division INT,
+    Class INT,
+    Gender BOOL,
+    FOREIGN KEY (EventID) REFERENCES Event(EventID),
+    FOREIGN KEY (Division) REFERENCES Division(DivisionID),
+    FOREIGN KEY (Class) REFERENCES Class(ClassID)
+);
+CREATE TABLE IF NOT EXISTS PracticeEvent
 (
     PracticeID INT NOT NULL,
     EventID INT NOT NULL,
@@ -21,7 +31,7 @@ CREATE TABLE PracticeEvent
     FOREIGN KEY (ArcheryAustraliaID) REFERENCES Member(ArcheryAustraliaID)
 );
 
-CREATE TABLE End
+CREATE TABLE IF NOT EXISTS End
 (
     EndID INT NOT NULL,
     RangeID INT NOT NULL,
@@ -32,7 +42,7 @@ CREATE TABLE End
     FOREIGN KEY (ArcheryAustraliaID) REFERENCES Member(ArcheryAustraliaID)
 );
 
-CREATE TABLE Score
+CREATE TABLE IF NOT EXISTS Score
 (
     ScoreID INT NOT NULL,
     EndID INT NOT NULL,
