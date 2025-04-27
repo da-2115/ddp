@@ -1,0 +1,26 @@
+<head>
+    <title>Archery Club Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/style.css" rel="stylesheet" />
+</head>
+
+<body class="login-body">
+    <nav>
+        <div>
+            <a href="/">Home</a>
+        </div>
+        <div class="right">
+            <a href="/login.html">Login</a><a href="/api/login">Auth-Test</a>
+        </div>
+    </nav>
+    <div class="form-container">
+        <form class="login-form" method="post" action="./api/login">
+            <label for="username">Username</label>
+            <input class="text" name="username" id="username" type="text">
+            <label for="password">Password</label>
+            <input class="text" name="password" id="password" type="text">
+            <input class="submit" type="Submit" value="Login">
+        </form>
+    </div>
+</body>
