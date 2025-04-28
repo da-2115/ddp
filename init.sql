@@ -5,16 +5,37 @@ CREATE TABLE IF NOT EXISTS Class (
     ClassID NVARCHAR(255) PRIMARY KEY
 );
 
+INSERT INTO Class(ClassID)
+VALUES
+    ("Under14"),
+    ("Under16"),
+    ("Under18"),
+    ("Under21"),
+    ("Open"),
+    ("50Plus"),
+    ("60Plus"),
+    ("70Plus");
+
 CREATE TABLE IF NOT EXISTS Division (
     DivisionID NVARCHAR(255) PRIMARY KEY
 );
 
+INSERT INTO Division(DivisionID)
+VALUES
+    ("Recurve"),
+    ("Compound"),
+    ("RecurveBarebow"),
+    ("CompoundBarebow"),
+    ("Longbow");
+
 CREATE TABLE IF NOT EXISTS Member
 (
     ArcheryAustraliaID NVARCHAR(255) PRIMARY KEY NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
     FirstName NVARCHAR(255) NOT NULL,
     DateOfBirth DATE NOT NULL,
     Gender BOOL NOT NULL,
+    ClubRecorder BOOL NOT NULL,
     DefaultDivision NVARCHAR(255) NOT NULL,
     FOREIGN KEY (DefaultDivision) REFERENCES Division(DivisionID)
 );
