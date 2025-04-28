@@ -7,7 +7,7 @@ or the docker cli
 
 run:
 ```sh
-docker compose up
+docker compose up --build # might need 'sudo' on mac/linux depending on setup
 ```
 then wait for it to say `Server listening http://127.0.0.1:8000`
 
