@@ -107,7 +107,7 @@
         <tbody>
             {{range .Rows }}
             <tr hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page=1&qType=score&event_id={{ .Eventid }}&round_id={{ .Roundid }}&range_id={{ .Rangeid }}&end_id={{ .Endid }}" hx-redirect="true">
-                <td>{{ .Endid }}</td>
+                <td>{{ .Arrownumber }}</td>
                 <td>{{ .Score }}</td>
             </tr>
             {{ end }}
