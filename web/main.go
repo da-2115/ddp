@@ -16,7 +16,6 @@ func main() {
 	if dsn == "" {
 		dsn = "root:1234@tcp(127.0.0.1:3306)/ARCHERYDB?parseTime=true"
 	}
-	slog.Info("", "dsn", dsn)
 
 	var db *sql.DB
 	var err error
