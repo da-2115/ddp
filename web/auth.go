@@ -32,7 +32,7 @@ func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("session_id")
 		if err != nil {
-			http.Redirect(w, r, "/login.html", http.StatusSeeOther)
+			http.Redirect(w, r, "/login.html?next="+r.URL.Path[1:], http.StatusSeeOther)
 			return
 		}
 
@@ -44,7 +44,7 @@ func authMiddleware(next http.Handler) http.Handler {
 				Expires: time.Unix(0, 0),
 				MaxAge:  -1,
 			})
-			http.Redirect(w, r, "/login.html", http.StatusSeeOther)
+			http.Redirect(w, r, "/login.html?next="+r.URL.Path[1:], http.StatusSeeOther)
 			return
 		}
 

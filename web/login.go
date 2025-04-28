@@ -20,11 +20,12 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 
 	user := r.FormValue("username")
 	pass := r.FormValue("password")
+	next := r.FormValue("next")
 
 	m, err := q.GetMemberByID(context.Background(), user)
 	if err != nil {
 		slog.Info("Login Request Invalid User", "user", user)
-		http.Redirect(w, r, "/login.html", http.StatusSeeOther)
+		http.Redirect(w, r, "/login.html?next=" + next, http.StatusSeeOther)
 		return
 	}
 
@@ -53,12 +54,12 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 			SameSite: http.SameSiteLaxMode,
 		})
 
-		slog.Info("Login success", "user", user)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		slog.Info("Login success", "user", user, "next", next)
+		http.Redirect(w, r, "/" + next, http.StatusSeeOther)
 		return
 	} else {
 		slog.Info("Login wrong password", "user", user)
-		http.Redirect(w, r, "/login.html", http.StatusSeeOther)
+		http.Redirect(w, r, "/login.html?next=" + next, http.StatusSeeOther)
 		return
 	}
 }
