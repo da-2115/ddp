@@ -159,8 +159,7 @@ func endListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, pag
 	roundID := r.URL.Query().Get("round_id")
 	roundIDNum, err := strconv.Atoi(roundID)
 	if err != nil {
-		http.Error(w, "", http.StatusBadGateway)
-		return
+		http.Error(w, "", http.StatusBadRequest)
 	}
 
 	rangeID := r.URL.Query().Get("range_id")
