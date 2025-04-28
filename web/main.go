@@ -2,26 +2,37 @@ package main
 
 import (
 	"database/sql"
-	"log"
 	"log/slog"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/da-2115/ddp/web/data"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
-	dsn := "root:1234@tcp(127.0.0.1:3306)/ARCHERYDB?parseTime=true"
-
-	db, err := sql.Open("mysql", dsn)
-	if err != nil {
-		log.Fatal(err)
+	dsn := os.Getenv("ARCHERY_DSN")
+	if dsn == "" {
+		dsn = "root:1234@tcp(127.0.0.1:3306)/ARCHERYDB?parseTime=true"
 	}
+	slog.Info("", "dsn", dsn)
+
+	var db *sql.DB
+	var err error
+    for {
+        db, err = sql.Open("mysql", dsn)
+        if err == nil {
+            err = db.Ping()
+        }
+        if err == nil {
+            break
+        }
+		slog.Info("Waiting for database..", "err", err)
+        time.Sleep(2 * time.Second)
+    }
 	defer db.Close()
 
-	if err := db.Ping(); err != nil {
-		log.Fatal(err)
-	}
 	slog.Info("Connected to DB")
 
 	query := data.New(db)
