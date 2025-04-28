@@ -46,6 +46,7 @@ func scoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 		scoreListHandler(w, r, q, pageNum, id.ArcheryAustraliaId)
 	default:
 		http.Error(w, "", http.StatusBadRequest)
+		return
 	}
 }
 
@@ -160,6 +161,7 @@ func endListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, pag
 	roundIDNum, err := strconv.Atoi(roundID)
 	if err != nil {
 		http.Error(w, "", http.StatusBadRequest)
+		return
 	}
 
 	rangeID := r.URL.Query().Get("range_id")
@@ -213,6 +215,7 @@ func scoreListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 	roundIDNum, err := strconv.Atoi(roundID)
 	if err != nil {
 		http.Error(w, "", http.StatusBadRequest)
+		return
 	}
 
 	rangeID := r.URL.Query().Get("range_id")
