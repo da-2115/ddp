@@ -1,0 +1,118 @@
+{{ block "event-table" . }}
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>EventID</th>
+                <th>Event Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range . }}
+            <tr hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page=1&qType=round&event_id={{ .Eventid }}" hx-redirect="true">
+                <td>{{.Eventid}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Date}}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ block "round-table" . }}
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>RoundID</th>
+                <th>Division</th>
+                <th>Class</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Rows }}
+            <tr hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page=1&qType=range&event_id={{ .Eventid }}&round_id={{ .Roundid }}" hx-redirect="true">
+                <td>{{.Roundid}}</td>
+                <td>{{.Division}}</td>
+                <td>{{.Class}}</td>
+                <td>{{.Gender}}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <button hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page={{ .Page }}&qType=event" hx-redirect="true">Back</button>
+</div>
+{{ end }}
+
+{{ block "range-table" . }}
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Division</th>
+                <th>Class</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Rows }}
+            <tr hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page=1&qType=end&event_id={{ .Eventid }}&round_id={{ .Roundid }}&range_id={{ .Rangeid }}" hx-redirect="true">
+                <td>{{.Name}}</td>
+                <td>{{.Division}}</td>
+                <td>{{.Class}}</td>
+                <td>{{.Gender}}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <button hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page={{ .Page }}&qType=round&event_id={{ .Eventid }}" hx-redirect="true">Back</button>
+</div>
+{{ end }}
+
+{{ block "end-table" . }}
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>EndID</th>
+                <th>Total Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Rows }}
+            <tr hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page=1&qType=score&event_id={{ .Eventid }}&round_id={{ .Roundid }}&range_id={{ .Rangeid }}&end_id={{ .Endid }}" hx-redirect="true">
+                <td>{{.Endid}}</td>
+                <td>{{.Finalscore}}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <button hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page={{ .Page }}&qType=range&event_id={{ .Eventid }}&round_id={{ .Roundid }}" hx-redirect="true">Back</button>
+</div>
+{{ end }}
+
+{{ block "score-table" . }}
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>Arrow #</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Rows }}
+            <tr hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page=1&qType=score&event_id={{ .Eventid }}&round_id={{ .Roundid }}&range_id={{ .Rangeid }}&end_id={{ .Endid }}" hx-redirect="true">
+                <td>{{ .Arrownumber }}</td>
+                <td>{{ .Score }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <button hx-target="#app" hx-swap="outerHTML" hx-get="/api/scores?page={{ .Page }}&qType=end&event_id={{ .Eventid }}&round_id={{ .Roundid }}&range_id={{ .Rangeid }}" hx-redirect="true">Back</button>
+</div>
+{{ end }}

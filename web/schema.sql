@@ -1,35 +1,12 @@
--- drop database ARCHERYDB;
-CREATE DATABASE IF NOT EXISTS ARCHERYDB;
-USE ARCHERYDB;
-
-CREATE TABLE IF NOT EXISTS Class (
+CREATE TABLE Class (
     ClassID NVARCHAR(255) PRIMARY KEY
 );
 
-INSERT INTO Class(ClassID)
-VALUES
-    ("Under14"),
-    ("Under16"),
-    ("Under18"),
-    ("Under21"),
-    ("Open"),
-    ("50Plus"),
-    ("60Plus"),
-    ("70Plus");
-
-CREATE TABLE IF NOT EXISTS Division (
+CREATE TABLE Division (
     DivisionID NVARCHAR(255) PRIMARY KEY
 );
 
-INSERT INTO Division(DivisionID)
-VALUES
-    ("Recurve"),
-    ("Compound"),
-    ("RecurveBarebow"),
-    ("CompoundBarebow"),
-    ("Longbow");
-
-CREATE TABLE IF NOT EXISTS Member
+CREATE TABLE Member
 (
     ArcheryAustraliaID NVARCHAR(255) PRIMARY KEY NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
@@ -41,20 +18,20 @@ CREATE TABLE IF NOT EXISTS Member
     FOREIGN KEY (DefaultDivision) REFERENCES Division(DivisionID)
 );
 
-CREATE TABLE IF NOT EXISTS Event (
+CREATE TABLE Event (
     EventID INT AUTO_INCREMENT PRIMARY KEY,
     Name NVARCHAR(255) NOT NULL,
     Date DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Championship (
+CREATE TABLE Championship (
     ChampionshipID INT PRIMARY KEY NOT NULL ,  
     EventID INT NOT NULL,
     Name NVARCHAR(255) NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Event(EventID)
  );
  
-CREATE TABLE IF NOT EXISTS Round (
+CREATE TABLE Round (
     RoundID INT AUTO_INCREMENT PRIMARY KEY,
     EventID INT NOT NULL,
     Division NVARCHAR(255) NOT NULL,
@@ -65,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Round (
     FOREIGN KEY (Class) REFERENCES Class(ClassID)
 );
 
-CREATE TABLE IF NOT EXISTS `Range` 
+CREATE TABLE `Range`
 (
     RangeID INT AUTO_INCREMENT PRIMARY KEY,
     RoundID INT NOT NULL,
@@ -83,7 +60,7 @@ CREATE TABLE PracticeEvent
     FOREIGN KEY (EventID) REFERENCES Event(EventID)
 );
 
-CREATE TABLE IF NOT EXISTS End
+CREATE TABLE End
 (
     EndID INT AUTO_INCREMENT PRIMARY KEY,
     RangeID INT NOT NULL,
@@ -94,7 +71,7 @@ CREATE TABLE IF NOT EXISTS End
     FOREIGN KEY (ArcheryAustraliaID) REFERENCES Member(ArcheryAustraliaID)
 );
 
-CREATE TABLE IF NOT EXISTS Score
+CREATE TABLE Score
 (
     ScoreID INT AUTO_INCREMENT PRIMARY KEY,
     EndID INT NOT NULL,
