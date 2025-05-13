@@ -12,6 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// handles the login form. Logs in the user, gives them a cookie
 func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
@@ -29,8 +30,10 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 		return
 	}
 
+	// checks if the password exists in the database using bcrypt hashing
 	if err := bcrypt.CompareHashAndPassword([]byte(m.Passwordhash), []byte(pass)); err == nil {
 
+		// creates random data to use as the cookie id
 		b := make([]byte, 32)
 		_, err := rand.Read(b)
 		if err != nil {
@@ -60,6 +63,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 	} else {
 		slog.Info("Login wrong password", "user", user)
 		http.Redirect(w, r, "/login.html?next=" + next, http.StatusSeeOther)
+		// ?next is used to redirect back after logging in
 		return
 	}
 }

@@ -1,4 +1,6 @@
 package main
+// This is the file for the events table on the 'View-Scores' page uses htmx along with the table.html
+// Each handler is one layer deeper than the last on the scores.html page
 
 import (
 	"context"
@@ -8,7 +10,6 @@ import (
 
 	"github.com/da-2115/ddp/web/data"
 )
-
 var tmpl *template.Template
 
 func init() {

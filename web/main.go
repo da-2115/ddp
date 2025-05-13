@@ -12,11 +12,13 @@ import (
 )
 
 func main() {
+	// Gets the database connection string
 	dsn := os.Getenv("ARCHERY_DSN")
 	if dsn == "" {
 		dsn = "root:1234@tcp(127.0.0.1:3306)/ARCHERYDB?parseTime=true"
 	}
 
+	// Connect to the database / make sure it is reachable
 	var db *sql.DB
 	var err error
     for {
@@ -28,14 +30,16 @@ func main() {
             break
         }
 		slog.Info("Waiting for database..", "err", err)
-        time.Sleep(2 * time.Second)
-    }
-	defer db.Close()
+		time.Sleep(2 * time.Second)
+	}
+	defer db.Close() // defer just means when main() ends run this func
 
 	slog.Info("Connected to DB")
 
+	// Setting up db with on SQLC library
 	query := data.New(db)
 
+	// set up mux eg. the http requests and what funcs they should call
 	mux := http.NewServeMux()
 
 	static := http.FileServer(http.Dir("static"))
@@ -57,6 +61,7 @@ func main() {
 		Handler: mux,
 	}
 
+	// runs the server
 	slog.Info("Server listening", "address", "http://127.0.0.1"+srv.Addr)
 	if err := srv.ListenAndServe(); err != nil {
 		panic(err)
