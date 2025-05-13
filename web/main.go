@@ -54,7 +54,7 @@ func main() {
 	mux.Handle("GET /api/login", auth.AuthMiddleware(http.HandlerFunc(auth.AuthTestHandler)))
 
 	mux.Handle("GET /scores.html", auth.AuthMiddleware(static))
-	mux.Handle("GET /api/scores", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	mux.Handle("GET /components/scores", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ScoresHandler(w, r, query)
 	})))
 
