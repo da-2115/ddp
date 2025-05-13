@@ -7,6 +7,7 @@ import (
 
 type Session struct {
 	ArcheryAustraliaId string
+	Admin              bool
 	Expires            time.Time
 }
 
@@ -59,5 +60,17 @@ func AuthMiddleware(next http.Handler) http.Handler {
 // this is just a test handler for the button on the top right of the screen
 func AuthTestHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
+
+	// as this is after ran after AuthMiddleware we know that the user is logged in
+	cookie, err := r.Cookie("session_id")
+	if err != nil {
+		http.Error(w, "", http.StatusInternalServerError)
+	}
+	if s, exists := SessionMap[cookie.Value]; exists {
+		if s.Admin {
+			w.Write([]byte("You are authenticated\nYou are a club recorder"))
+			return
+		}
+	}
 	w.Write([]byte("You are authenticated"))
 }

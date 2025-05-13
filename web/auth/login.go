@@ -44,6 +44,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 		cookieVal := base64.URLEncoding.EncodeToString(b)
 		SessionMap[cookieVal] = Session{
 			ArcheryAustraliaId: user,
+			Admin:              m.Clubrecorder,
 			Expires:            time.Now().Add(24 * time.Hour),
 		}
 
