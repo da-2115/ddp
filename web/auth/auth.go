@@ -57,6 +57,26 @@ func AuthMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// Checks if requester is an admin (club recorder), expects AuthMiddleware to have already validated
+func AdminMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		c, err := r.Cookie("session_id")
+		if err != nil {
+			http.Error(w, "", http.StatusInternalServerError)
+			return
+		}
+
+		if s, exists := SessionMap[c.Value]; exists {
+			if !s.Admin {
+				http.Redirect(w, r, "/"+r.URL.Path[1:], http.StatusSeeOther)
+				return
+			}
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 // this is just a test handler for the button on the top right of the screen
 func AuthTestHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
