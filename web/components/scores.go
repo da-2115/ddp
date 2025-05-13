@@ -1,4 +1,5 @@
-package main
+package components
+
 // This is the file for the events table on the 'View-Scores' page uses htmx along with the table.html
 // Each handler is one layer deeper than the last on the scores.html page
 
@@ -8,22 +9,25 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/da-2115/ddp/web/auth"
 	"github.com/da-2115/ddp/web/data"
+	"github.com/da-2115/ddp/web/util"
 )
+
 var tmpl *template.Template
 
 func init() {
-	tmpl = unwrap(template.ParseFiles("./views/tables.html"))
+	tmpl = util.Unwrap(template.ParseFiles("views/tables.html"))
 }
 
-func scoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
+func ScoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 	c, err := r.Cookie("session_id")
 	if err != nil {
 		http.Error(w, "", http.StatusBadRequest)
 		return
 	}
 
-	id := sessionMap[c.Value]
+	id := auth.SessionMap[c.Value]
 
 	page := r.URL.Query().Get("page")
 	qType := r.URL.Query().Get("qType")
@@ -238,7 +242,7 @@ func scoreListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 		Eventid:            int32(eventIDNum),
 		Roundid:            int32(roundIDNum),
 		Rangeid:            int32(rangeIDNum),
-		Endid: 				int32(endIDNum),
+		Endid:              int32(endIDNum),
 		Limit:              10,
 		Offset:             (int32(pageNum) - 1) * 10,
 	})

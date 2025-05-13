@@ -1,29 +1,29 @@
-package main
+package auth
 
 import (
 	"net/http"
 	"time"
 )
 
-type session struct {
+type Session struct {
 	ArcheryAustraliaId string
 	Expires            time.Time
 }
 
 // this is where we store the cookies on the server
-var sessionMap map[string]session
+var SessionMap map[string]Session
 
 func init() {
-	sessionMap = make(map[string]session)
+	SessionMap = make(map[string]Session)
 }
 
 // checks if the cookie exists on the server based on the `Expires` time.Time value
 func cookieIsValid(c *http.Cookie) bool {
-	if s, exists := sessionMap[c.Value]; exists {
+	if s, exists := SessionMap[c.Value]; exists {
 		if time.Now().Before(s.Expires) {
 			return true
 		} else {
-			delete(sessionMap, c.Value)
+			delete(SessionMap, c.Value)
 			return false
 		}
 	}
@@ -31,7 +31,7 @@ func cookieIsValid(c *http.Cookie) bool {
 }
 
 // auth middleware that checks to see if the user has a session valid cookie, kicks them to the login screen if they don't
-func authMiddleware(next http.Handler) http.Handler {
+func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("session_id")
 		if err != nil {
@@ -57,7 +57,7 @@ func authMiddleware(next http.Handler) http.Handler {
 }
 
 // this is just a test handler for the button on the top right of the screen
-func authTestHandler(w http.ResponseWriter, r *http.Request) {
+func AuthTestHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
 	w.Write([]byte("You are authenticated"))
 }
