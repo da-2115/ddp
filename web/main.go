@@ -57,6 +57,7 @@ func main() {
 	mux.Handle("GET /components/scores", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ScoresHandler(w, r, query)
 	})))
+	mux.HandleFunc("GET /components/nav", components.NavHandler)
 
 	srv := &http.Server{
 		Addr:    ":8000",
