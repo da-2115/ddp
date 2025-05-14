@@ -56,10 +56,9 @@
     <table>
         <thead>
             <tr>
-                <th>Event Name</th>
-                <th>Division</th>
-                <th>Class</th>
-                <th>Gender</th>
+                <th>RangeID</th>
+                <th>Distance</th>
+                <th>Target Size</th>
             </tr>
         </thead>
         <tbody>
@@ -67,10 +66,9 @@
             <tr hx-target="#app" hx-swap="outerHTML"
                 hx-get="/components/scores?page=1&qType=end&event_id={{ .Eventid }}&round_id={{ .Roundid }}&range_id={{ .Rangeid }}"
                 hx-redirect="true">
-                <td>{{.Name}}</td>
-                <td>{{.Division}}</td>
-                <td>{{.Class}}</td>
-                <td>{{.Gender}}</td>
+                <td>{{.Rangeid}}</td>
+                <td>{{.Distance}}</td>
+                <td>{{.Targetsize}}</td>
             </tr>
             {{ end }}
         </tbody>
