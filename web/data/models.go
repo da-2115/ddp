@@ -52,6 +52,99 @@ func (ns NullMemberGender) Value() (driver.Value, error) {
 	return string(ns.MemberGender), nil
 }
 
+type RoundClass string
+
+const (
+	RoundClassUnder14 RoundClass = "Under14"
+	RoundClassUnder16 RoundClass = "Under16"
+	RoundClassUnder18 RoundClass = "Under18"
+	RoundClassUnder21 RoundClass = "Under21"
+	RoundClassOpen    RoundClass = "Open"
+	RoundClass50Plus  RoundClass = "50Plus"
+	RoundClass60Plus  RoundClass = "60Plus"
+	RoundClass70Plus  RoundClass = "70Plus"
+)
+
+func (e *RoundClass) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = RoundClass(s)
+	case string:
+		*e = RoundClass(s)
+	default:
+		return fmt.Errorf("unsupported scan type for RoundClass: %T", src)
+	}
+	return nil
+}
+
+type NullRoundClass struct {
+	RoundClass RoundClass `json:"round_class"`
+	Valid      bool       `json:"valid"` // Valid is true if RoundClass is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullRoundClass) Scan(value interface{}) error {
+	if value == nil {
+		ns.RoundClass, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.RoundClass.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullRoundClass) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.RoundClass), nil
+}
+
+type RoundDivision string
+
+const (
+	RoundDivisionRecurve         RoundDivision = "Recurve"
+	RoundDivisionCompound        RoundDivision = "Compound"
+	RoundDivisionRecurveBarebow  RoundDivision = "RecurveBarebow"
+	RoundDivisionCompoundBarebow RoundDivision = "CompoundBarebow"
+	RoundDivisionLongbow         RoundDivision = "Longbow"
+)
+
+func (e *RoundDivision) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = RoundDivision(s)
+	case string:
+		*e = RoundDivision(s)
+	default:
+		return fmt.Errorf("unsupported scan type for RoundDivision: %T", src)
+	}
+	return nil
+}
+
+type NullRoundDivision struct {
+	RoundDivision RoundDivision `json:"round_division"`
+	Valid         bool          `json:"valid"` // Valid is true if RoundDivision is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullRoundDivision) Scan(value interface{}) error {
+	if value == nil {
+		ns.RoundDivision, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.RoundDivision.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullRoundDivision) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.RoundDivision), nil
+}
+
 type RoundGender string
 
 const (
@@ -100,14 +193,6 @@ type Championship struct {
 	Name           string `json:"name"`
 }
 
-type Class struct {
-	Classid string `json:"classid"`
-}
-
-type Division struct {
-	Divisionid string `json:"divisionid"`
-}
-
 type End struct {
 	Endid              int32  `json:"endid"`
 	Rangeid            int32  `json:"rangeid"`
@@ -129,7 +214,6 @@ type Member struct {
 	Dateofbirth        time.Time    `json:"dateofbirth"`
 	Gender             MemberGender `json:"gender"`
 	Clubrecorder       bool         `json:"clubrecorder"`
-	Defaultdivision    string       `json:"defaultdivision"`
 }
 
 type Practiceevent struct {
@@ -146,11 +230,11 @@ type Range struct {
 }
 
 type Round struct {
-	Roundid  int32       `json:"roundid"`
-	Eventid  int32       `json:"eventid"`
-	Division string      `json:"division"`
-	Class    string      `json:"class"`
-	Gender   RoundGender `json:"gender"`
+	Roundid  int32             `json:"roundid"`
+	Eventid  int32             `json:"eventid"`
+	Class    RoundClass        `json:"class"`
+	Division NullRoundDivision `json:"division"`
+	Gender   RoundGender       `json:"gender"`
 }
 
 type Score struct {

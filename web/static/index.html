@@ -5,17 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/style.css" rel="stylesheet" />
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <nav>
-        <div>
-            <a href="/">Home</a>
-            <a href="/scores.html">View Scores</a>
-        </div>
-        <div class="right">
-            <a href="/login.html">Login</a><a href="/api/login">Auth-Test</a>
-        </div>
-    </nav>
+    <nav hx-get="/components/nav" hx-swap="outerHTML" hx-trigger="load"></nav>
     <h1>Home</h1>
 </body>
