@@ -5,9 +5,9 @@ LIMIT 1;
 
 -- name: CreateMember :execresult
 INSERT INTO Member (
-    ArcheryAustraliaID, PasswordHash, FirstName, DateOfBirth, Gender, ClubRecorder, DefaultDivision
+    ArcheryAustraliaID, PasswordHash, FirstName, DateOfBirth, Gender, ClubRecorder
 ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?
+    ?, ?, ?, ?, ?, ?
 );
 
 -- name: DeleteMember :exec
@@ -15,6 +15,18 @@ DELETE FROM Member
 WHERE ArcheryAustraliaID = ?;
 
 -- name: GetEvents :many
+SELECT *
+FROM Event
+LIMIT ?
+OFFSET ?;
+
+-- name: GetRounds :many
+SELECT *
+FROM Event
+LIMIT ?
+OFFSET ?;
+
+-- name: GetEventsByID :many
 SELECT *
 FROM Event e
 JOIN `Round` r ON e.EventID = r.EventID
@@ -24,7 +36,7 @@ WHERE en.ArcheryAustraliaID = ?
 LIMIT ?
 OFFSET ?;
 
--- name: GetRounds :many
+-- name: GetRoundsByID :many
 SELECT *
 FROM `Round` r
 JOIN Event e ON e.EventID = r.EventID
@@ -34,7 +46,7 @@ WHERE en.ArcheryAustraliaID = ? AND e.EventID = ?
 LIMIT ?
 OFFSET ?;
 
--- name: GetRanges :many
+-- name: GetRangesByID :many
 SELECT *
 FROM `Range` ra
 JOIN `Round` r ON r.RoundID = ra.RoundID
@@ -44,7 +56,7 @@ WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ?
 LIMIT ?
 OFFSET ?;
 
--- name: GetEnds :many
+-- name: GetEndsByID :many
 SELECT *
 FROM End en
 JOIN `Range` ra ON ra.RangeID = en.RangeID
@@ -54,7 +66,7 @@ WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ? AND en.Range
 LIMIT ?
 OFFSET ?;
 
--- name: GetScores :many
+-- name: GetScoresByID :many
 SELECT *
 FROM Score s
 JOIN End en ON s.EndID = en.EndID
@@ -65,10 +77,34 @@ WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ? AND en.Range
 LIMIT ?
 OFFSET ?;
 
--- name: GetPracticeEvents :many
+-- name: GetPracticeEventsByID :many
 SELECT e.*
 FROM Event e
 JOIN PracticeEvent pe ON e.EventID = pe.EventID
 WHERE pe.ArcheryAustraliaID = ?
 LIMIT ?
 OFFSET ?;
+
+-- name: CreateEvent :execresult
+INSERT INTO Event (
+    Name, Date
+)
+VALUES (
+    ?, ?
+);
+
+-- name: CreateRound :execresult
+INSERT INTO `Round` (
+    EventID, Division, Class, Gender
+)
+VALUES (
+    ?, ?, ?, ?
+);
+
+-- CreateRange :execresult
+INSERT INTO `Range` (
+    RoundID, Distance, TargetSize
+)
+VALUES (
+    ?, ?, ?
+);
