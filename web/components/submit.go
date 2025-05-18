@@ -14,9 +14,24 @@ import (
 )
 
 var submitTmpl *template.Template
+var scoresMap map[string]int32
 
 func init() {
 	submitTmpl = util.Unwrap(template.ParseFiles("views/events-list.html", "views/submit-form.html"))
+	scoresMap = map[string]int32{
+		"X":  10,
+		"10": 10,
+		"9":  9,
+		"8":  8,
+		"7":  7,
+		"6":  6,
+		"5":  5,
+		"4":  4,
+		"3":  3,
+		"2":  2,
+		"1":  1,
+		"M":  0,
+	}
 }
 
 func SubmitHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data.Queries) {
@@ -30,18 +45,28 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data.Q
 
 	arrowList := r.FormValue("arrow-list")
 
-	var totalScore int
-	if totalScore, err = strconv.Atoi(r.FormValue("total-score")); err != nil {
-		http.Error(w, "total score not convertable", http.StatusBadRequest)
-		return
-	}
-
 	cookie, err := r.Cookie("session_id")
 
 	s, exists := auth.SessionMap[cookie.Value]
 	if !exists {
 		http.Error(w, "you are not authenticated", http.StatusBadRequest)
 		return
+	}
+
+	// Remove white space then sepearate
+	arrowList = strings.ReplaceAll(arrowList, " ", "")
+	arrowList = strings.ReplaceAll(arrowList, "\n", "")
+	arrowList = strings.ReplaceAll(arrowList, "\t", "")
+	arrows := strings.Split(arrowList, ",")
+
+	var totalScore int32 = 0
+	for _, arrow := range arrows {
+		if val, exists := scoresMap[arrow]; exists {
+			totalScore += val
+		} else {
+			http.Error(w, "Invalid Arrows", http.StatusBadRequest)
+			return
+		}
 	}
 
 	// TODO: Add check if valid (right gender, age)
@@ -52,7 +77,7 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data.Q
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
-	defer tx.Rollback()
+	defer tx.Rollback() // auto rollback on return (after commit() doesn't do anything)
 
 	qtx := q.WithTx(tx)
 
@@ -62,14 +87,11 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data.Q
 		Finalscore:         int32(totalScore),
 	})
 
-	arrows := strings.Split(arrowList, ",")
-
 	id, err := res.LastInsertId()
 	if err != nil {
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
-
 	for idx, arrow := range arrows {
 		_, err := qtx.CreateScore(context.Background(), data.CreateScoreParams{
 			Endid:       int32(id),
@@ -78,7 +100,7 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data.Q
 		})
 
 		if err != nil {
-			http.Error(w, err.Error() ,http.StatusBadRequest)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 	}
