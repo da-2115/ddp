@@ -230,11 +230,11 @@ type Range struct {
 }
 
 type Round struct {
-	Roundid  int32             `json:"roundid"`
-	Eventid  int32             `json:"eventid"`
-	Class    RoundClass        `json:"class"`
-	Division NullRoundDivision `json:"division"`
-	Gender   RoundGender       `json:"gender"`
+	Roundid  int32         `json:"roundid"`
+	Eventid  int32         `json:"eventid"`
+	Class    RoundClass    `json:"class"`
+	Division RoundDivision `json:"division"`
+	Gender   RoundGender   `json:"gender"`
 }
 
 type Score struct {

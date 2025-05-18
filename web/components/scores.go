@@ -14,10 +14,10 @@ import (
 	"github.com/da-2115/ddp/web/util"
 )
 
-var tmpl *template.Template
+var tablesTmpl *template.Template
 
 func init() {
-	tmpl = util.Unwrap(template.ParseFiles("views/tables.html"))
+	tablesTmpl = util.Unwrap(template.ParseFiles("views/tables.html"))
 }
 
 func ScoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
@@ -40,7 +40,7 @@ func ScoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 
 	switch qType {
 	case "event":
-		eventsListHandler(w, r, q, pageNum, id.ArcheryAustraliaId)
+		eventsListHandler(w, q, pageNum, id.ArcheryAustraliaId)
 	case "round":
 		roundListHandler(w, r, q, pageNum, id.ArcheryAustraliaId)
 	case "range":
@@ -55,8 +55,8 @@ func ScoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 	}
 }
 
-func eventsListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, pageNum int, id string) {
-	events, err := q.GetEvents(context.Background(), data.GetEventsParams{
+func eventsListHandler(w http.ResponseWriter, q *data.Queries, pageNum int, id string) {
+	events, err := q.GetEventsByID(context.Background(), data.GetEventsByIDParams{
 		Archeryaustraliaid: id,
 		Limit:              10,
 		Offset:             (int32(pageNum) - 1) * 10,
@@ -67,7 +67,7 @@ func eventsListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, 
 		return
 	}
 
-	err = tmpl.ExecuteTemplate(w, "event-table", events)
+	err = tablesTmpl.ExecuteTemplate(w, "event-table", events)
 	if err != nil {
 		http.Error(w, "", http.StatusInternalServerError)
 		return
@@ -82,7 +82,7 @@ func roundListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 		return
 	}
 
-	rounds, err := q.GetRounds(context.Background(), data.GetRoundsParams{
+	rounds, err := q.GetRoundsByID(context.Background(), data.GetRoundsByIDParams{
 		Archeryaustraliaid: id,
 		Eventid:            int32(eventIDNum),
 		Limit:              10,
@@ -95,11 +95,11 @@ func roundListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 	}
 
 	type roundWrapper struct {
-		Rows []data.GetRoundsRow
+		Rows []data.GetRoundsByIDRow
 		Page int
 	}
 
-	err = tmpl.ExecuteTemplate(w, "round-table", roundWrapper{
+	err = tablesTmpl.ExecuteTemplate(w, "round-table", roundWrapper{
 		Rows: rounds,
 		Page: pageNum,
 	})
@@ -124,7 +124,7 @@ func rangeListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 		return
 	}
 
-	ranges, err := q.GetRanges(context.Background(), data.GetRangesParams{
+	ranges, err := q.GetRangesByID(context.Background(), data.GetRangesByIDParams{
 		Archeryaustraliaid: id,
 		Eventid:            int32(eventIDNum),
 		Roundid:            int32(roundIDNum),
@@ -138,12 +138,12 @@ func rangeListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 	}
 
 	type rangeWrapper struct {
-		Rows    []data.GetRangesRow
+		Rows    []data.GetRangesByIDRow
 		Page    int
 		Eventid int
 	}
 
-	err = tmpl.ExecuteTemplate(w, "range-table", rangeWrapper{
+	err = tablesTmpl.ExecuteTemplate(w, "range-table", rangeWrapper{
 		Rows:    ranges,
 		Page:    pageNum,
 		Eventid: eventIDNum,
@@ -176,7 +176,7 @@ func endListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, pag
 		return
 	}
 
-	ends, err := q.GetEnds(context.Background(), data.GetEndsParams{
+	ends, err := q.GetEndsByID(context.Background(), data.GetEndsByIDParams{
 		Archeryaustraliaid: id,
 		Eventid:            int32(eventIDNum),
 		Roundid:            int32(roundIDNum),
@@ -190,13 +190,13 @@ func endListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, pag
 	}
 
 	type endWrapper struct {
-		Rows    []data.GetEndsRow
+		Rows    []data.GetEndsByIDRow
 		Page    int
 		Eventid int
 		Roundid int
 	}
 
-	err = tmpl.ExecuteTemplate(w, "end-table", endWrapper{
+	err = tablesTmpl.ExecuteTemplate(w, "end-table", endWrapper{
 		Rows:    ends,
 		Page:    pageNum,
 		Eventid: eventIDNum,
@@ -237,7 +237,7 @@ func scoreListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 		return
 	}
 
-	scores, err := q.GetScores(context.Background(), data.GetScoresParams{
+	scores, err := q.GetScoresByID(context.Background(), data.GetScoresByIDParams{
 		Archeryaustraliaid: id,
 		Eventid:            int32(eventIDNum),
 		Roundid:            int32(roundIDNum),
@@ -252,14 +252,14 @@ func scoreListHandler(w http.ResponseWriter, r *http.Request, q *data.Queries, p
 	}
 
 	type scoreWrapper struct {
-		Rows    []data.GetScoresRow
+		Rows    []data.GetScoresByIDRow
 		Page    int
 		Eventid int
 		Roundid int
 		Rangeid int
 	}
 
-	err = tmpl.ExecuteTemplate(w, "score-table", scoreWrapper{
+	err = tablesTmpl.ExecuteTemplate(w, "score-table", scoreWrapper{
 		Rows:    scores,
 		Page:    pageNum,
 		Eventid: eventIDNum,

@@ -59,6 +59,17 @@ func main() {
 	})))
 	mux.HandleFunc("GET /components/nav", components.NavHandler)
 
+	mux.Handle("GET /submit.html", auth.AuthMiddleware(static))
+	mux.Handle("GET /components/events-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			components.SubmitEventsHandler(w,r,query)
+		})))
+	mux.Handle("GET /components/rounds-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			components.SubmitRoundsHandler(w,r,query)
+		})))
+	mux.Handle("GET /components/ranges-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			components.SubmitRangesHandler(w,r,query)
+		})))
+
 	srv := &http.Server{
 		Addr:    ":8000",
 		Handler: mux,

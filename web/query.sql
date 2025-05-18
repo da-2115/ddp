@@ -21,8 +21,26 @@ LIMIT ?
 OFFSET ?;
 
 -- name: GetRounds :many
+SELECT  *
+FROM Round r
+JOIN Member m ON (
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 14 AND r.Class IN ('Under14', 'Under16', 'Under18', 'Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 16 AND r.Class IN ('Under16', 'Under18', 'Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 18 AND r.Class IN ('Under18', 'Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 21 AND r.Class IN ('Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) > 21 AND r.Class IN ('Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 50 AND r.Class IN ('Open', '50Plus')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 60 AND r.Class IN ('Open', '50Plus', '60Plus')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 70 AND r.Class IN ('Open', '50Plus', '60Plus', '70Plus'))
+    )
+WHERE m.ArcheryAustraliaID = ? AND r.EventID = ?
+LIMIT ?
+OFFSET ?;
+
+-- name: GetRangesByRound :many
 SELECT *
-FROM Event
+FROM `Range` ra
+WHERE ra.RoundID = ?
 LIMIT ?
 OFFSET ?;
 

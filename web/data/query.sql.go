@@ -67,10 +67,10 @@ VALUES (
 `
 
 type CreateRoundParams struct {
-	Eventid  int32             `json:"eventid"`
-	Division NullRoundDivision `json:"division"`
-	Class    RoundClass        `json:"class"`
-	Gender   RoundGender       `json:"gender"`
+	Eventid  int32         `json:"eventid"`
+	Division RoundDivision `json:"division"`
+	Class    RoundClass    `json:"class"`
+	Gender   RoundGender   `json:"gender"`
 }
 
 func (q *Queries) CreateRound(ctx context.Context, arg CreateRoundParams) (sql.Result, error) {
@@ -113,23 +113,23 @@ type GetEndsByIDParams struct {
 }
 
 type GetEndsByIDRow struct {
-	Endid              int32             `json:"endid"`
-	Rangeid            int32             `json:"rangeid"`
-	Archeryaustraliaid string            `json:"archeryaustraliaid"`
-	Finalscore         int32             `json:"finalscore"`
-	Staged             bool              `json:"staged"`
-	Rangeid_2          int32             `json:"rangeid_2"`
-	Roundid            int32             `json:"roundid"`
-	Distance           int32             `json:"distance"`
-	Targetsize         int32             `json:"targetsize"`
-	Roundid_2          int32             `json:"roundid_2"`
-	Eventid            int32             `json:"eventid"`
-	Class              RoundClass        `json:"class"`
-	Division           NullRoundDivision `json:"division"`
-	Gender             RoundGender       `json:"gender"`
-	Eventid_2          int32             `json:"eventid_2"`
-	Name               string            `json:"name"`
-	Date               time.Time         `json:"date"`
+	Endid              int32         `json:"endid"`
+	Rangeid            int32         `json:"rangeid"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Finalscore         int32         `json:"finalscore"`
+	Staged             bool          `json:"staged"`
+	Rangeid_2          int32         `json:"rangeid_2"`
+	Roundid            int32         `json:"roundid"`
+	Distance           int32         `json:"distance"`
+	Targetsize         int32         `json:"targetsize"`
+	Roundid_2          int32         `json:"roundid_2"`
+	Eventid            int32         `json:"eventid"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Eventid_2          int32         `json:"eventid_2"`
+	Name               string        `json:"name"`
+	Date               time.Time     `json:"date"`
 }
 
 func (q *Queries) GetEndsByID(ctx context.Context, arg GetEndsByIDParams) ([]GetEndsByIDRow, error) {
@@ -233,23 +233,23 @@ type GetEventsByIDParams struct {
 }
 
 type GetEventsByIDRow struct {
-	Eventid            int32             `json:"eventid"`
-	Name               string            `json:"name"`
-	Date               time.Time         `json:"date"`
-	Roundid            int32             `json:"roundid"`
-	Eventid_2          int32             `json:"eventid_2"`
-	Class              RoundClass        `json:"class"`
-	Division           NullRoundDivision `json:"division"`
-	Gender             RoundGender       `json:"gender"`
-	Rangeid            int32             `json:"rangeid"`
-	Roundid_2          int32             `json:"roundid_2"`
-	Distance           int32             `json:"distance"`
-	Targetsize         int32             `json:"targetsize"`
-	Endid              int32             `json:"endid"`
-	Rangeid_2          int32             `json:"rangeid_2"`
-	Archeryaustraliaid string            `json:"archeryaustraliaid"`
-	Finalscore         int32             `json:"finalscore"`
-	Staged             bool              `json:"staged"`
+	Eventid            int32         `json:"eventid"`
+	Name               string        `json:"name"`
+	Date               time.Time     `json:"date"`
+	Roundid            int32         `json:"roundid"`
+	Eventid_2          int32         `json:"eventid_2"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Rangeid            int32         `json:"rangeid"`
+	Roundid_2          int32         `json:"roundid_2"`
+	Distance           int32         `json:"distance"`
+	Targetsize         int32         `json:"targetsize"`
+	Endid              int32         `json:"endid"`
+	Rangeid_2          int32         `json:"rangeid_2"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Finalscore         int32         `json:"finalscore"`
+	Staged             bool          `json:"staged"`
 }
 
 func (q *Queries) GetEventsByID(ctx context.Context, arg GetEventsByIDParams) ([]GetEventsByIDRow, error) {
@@ -371,23 +371,23 @@ type GetRangesByIDParams struct {
 }
 
 type GetRangesByIDRow struct {
-	Rangeid            int32             `json:"rangeid"`
-	Roundid            int32             `json:"roundid"`
-	Distance           int32             `json:"distance"`
-	Targetsize         int32             `json:"targetsize"`
-	Roundid_2          int32             `json:"roundid_2"`
-	Eventid            int32             `json:"eventid"`
-	Class              RoundClass        `json:"class"`
-	Division           NullRoundDivision `json:"division"`
-	Gender             RoundGender       `json:"gender"`
-	Eventid_2          int32             `json:"eventid_2"`
-	Name               string            `json:"name"`
-	Date               time.Time         `json:"date"`
-	Endid              int32             `json:"endid"`
-	Rangeid_2          int32             `json:"rangeid_2"`
-	Archeryaustraliaid string            `json:"archeryaustraliaid"`
-	Finalscore         int32             `json:"finalscore"`
-	Staged             bool              `json:"staged"`
+	Rangeid            int32         `json:"rangeid"`
+	Roundid            int32         `json:"roundid"`
+	Distance           int32         `json:"distance"`
+	Targetsize         int32         `json:"targetsize"`
+	Roundid_2          int32         `json:"roundid_2"`
+	Eventid            int32         `json:"eventid"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Eventid_2          int32         `json:"eventid_2"`
+	Name               string        `json:"name"`
+	Date               time.Time     `json:"date"`
+	Endid              int32         `json:"endid"`
+	Rangeid_2          int32         `json:"rangeid_2"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Finalscore         int32         `json:"finalscore"`
+	Staged             bool          `json:"staged"`
 }
 
 func (q *Queries) GetRangesByID(ctx context.Context, arg GetRangesByIDParams) ([]GetRangesByIDRow, error) {
@@ -437,28 +437,114 @@ func (q *Queries) GetRangesByID(ctx context.Context, arg GetRangesByIDParams) ([
 	return items, nil
 }
 
+const getRangesByRound = `-- name: GetRangesByRound :many
+SELECT rangeid, roundid, distance, targetsize
+FROM ` + "`" + `Range` + "`" + ` ra
+WHERE ra.RoundID = ?
+LIMIT ?
+OFFSET ?
+`
+
+type GetRangesByRoundParams struct {
+	Roundid int32 `json:"roundid"`
+	Limit   int32 `json:"limit"`
+	Offset  int32 `json:"offset"`
+}
+
+func (q *Queries) GetRangesByRound(ctx context.Context, arg GetRangesByRoundParams) ([]Range, error) {
+	rows, err := q.db.QueryContext(ctx, getRangesByRound, arg.Roundid, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Range
+	for rows.Next() {
+		var i Range
+		if err := rows.Scan(
+			&i.Rangeid,
+			&i.Roundid,
+			&i.Distance,
+			&i.Targetsize,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getRounds = `-- name: GetRounds :many
-SELECT eventid, name, date
-FROM Event
+SELECT  roundid, eventid, class, division, r.gender, archeryaustraliaid, passwordhash, firstname, dateofbirth, m.gender, clubrecorder
+FROM Round r
+JOIN Member m ON (
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 14 AND r.Class IN ('Under14', 'Under16', 'Under18', 'Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 16 AND r.Class IN ('Under16', 'Under18', 'Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 18 AND r.Class IN ('Under18', 'Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) <= 21 AND r.Class IN ('Under21', 'Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) > 21 AND r.Class IN ('Open')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 50 AND r.Class IN ('Open', '50Plus')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 60 AND r.Class IN ('Open', '50Plus', '60Plus')) OR
+        (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 70 AND r.Class IN ('Open', '50Plus', '60Plus', '70Plus'))
+    )
+WHERE m.ArcheryAustraliaID = ? AND r.EventID = ?
 LIMIT ?
 OFFSET ?
 `
 
 type GetRoundsParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Archeryaustraliaid string `json:"archeryaustraliaid"`
+	Eventid            int32  `json:"eventid"`
+	Limit              int32  `json:"limit"`
+	Offset             int32  `json:"offset"`
 }
 
-func (q *Queries) GetRounds(ctx context.Context, arg GetRoundsParams) ([]Event, error) {
-	rows, err := q.db.QueryContext(ctx, getRounds, arg.Limit, arg.Offset)
+type GetRoundsRow struct {
+	Roundid            int32         `json:"roundid"`
+	Eventid            int32         `json:"eventid"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Passwordhash       string        `json:"passwordhash"`
+	Firstname          string        `json:"firstname"`
+	Dateofbirth        time.Time     `json:"dateofbirth"`
+	Gender_2           MemberGender  `json:"gender_2"`
+	Clubrecorder       bool          `json:"clubrecorder"`
+}
+
+func (q *Queries) GetRounds(ctx context.Context, arg GetRoundsParams) ([]GetRoundsRow, error) {
+	rows, err := q.db.QueryContext(ctx, getRounds,
+		arg.Archeryaustraliaid,
+		arg.Eventid,
+		arg.Limit,
+		arg.Offset,
+	)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Event
+	var items []GetRoundsRow
 	for rows.Next() {
-		var i Event
-		if err := rows.Scan(&i.Eventid, &i.Name, &i.Date); err != nil {
+		var i GetRoundsRow
+		if err := rows.Scan(
+			&i.Roundid,
+			&i.Eventid,
+			&i.Class,
+			&i.Division,
+			&i.Gender,
+			&i.Archeryaustraliaid,
+			&i.Passwordhash,
+			&i.Firstname,
+			&i.Dateofbirth,
+			&i.Gender_2,
+			&i.Clubrecorder,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -491,23 +577,23 @@ type GetRoundsByIDParams struct {
 }
 
 type GetRoundsByIDRow struct {
-	Roundid            int32             `json:"roundid"`
-	Eventid            int32             `json:"eventid"`
-	Class              RoundClass        `json:"class"`
-	Division           NullRoundDivision `json:"division"`
-	Gender             RoundGender       `json:"gender"`
-	Eventid_2          int32             `json:"eventid_2"`
-	Name               string            `json:"name"`
-	Date               time.Time         `json:"date"`
-	Rangeid            int32             `json:"rangeid"`
-	Roundid_2          int32             `json:"roundid_2"`
-	Distance           int32             `json:"distance"`
-	Targetsize         int32             `json:"targetsize"`
-	Endid              int32             `json:"endid"`
-	Rangeid_2          int32             `json:"rangeid_2"`
-	Archeryaustraliaid string            `json:"archeryaustraliaid"`
-	Finalscore         int32             `json:"finalscore"`
-	Staged             bool              `json:"staged"`
+	Roundid            int32         `json:"roundid"`
+	Eventid            int32         `json:"eventid"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Eventid_2          int32         `json:"eventid_2"`
+	Name               string        `json:"name"`
+	Date               time.Time     `json:"date"`
+	Rangeid            int32         `json:"rangeid"`
+	Roundid_2          int32         `json:"roundid_2"`
+	Distance           int32         `json:"distance"`
+	Targetsize         int32         `json:"targetsize"`
+	Endid              int32         `json:"endid"`
+	Rangeid_2          int32         `json:"rangeid_2"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Finalscore         int32         `json:"finalscore"`
+	Staged             bool          `json:"staged"`
 }
 
 func (q *Queries) GetRoundsByID(ctx context.Context, arg GetRoundsByIDParams) ([]GetRoundsByIDRow, error) {
@@ -579,27 +665,27 @@ type GetScoresByIDParams struct {
 }
 
 type GetScoresByIDRow struct {
-	Scoreid            int32             `json:"scoreid"`
-	Endid              int32             `json:"endid"`
-	Arrownumber        int32             `json:"arrownumber"`
-	Score              string            `json:"score"`
-	Endid_2            int32             `json:"endid_2"`
-	Rangeid            int32             `json:"rangeid"`
-	Archeryaustraliaid string            `json:"archeryaustraliaid"`
-	Finalscore         int32             `json:"finalscore"`
-	Staged             bool              `json:"staged"`
-	Rangeid_2          int32             `json:"rangeid_2"`
-	Roundid            int32             `json:"roundid"`
-	Distance           int32             `json:"distance"`
-	Targetsize         int32             `json:"targetsize"`
-	Roundid_2          int32             `json:"roundid_2"`
-	Eventid            int32             `json:"eventid"`
-	Class              RoundClass        `json:"class"`
-	Division           NullRoundDivision `json:"division"`
-	Gender             RoundGender       `json:"gender"`
-	Eventid_2          int32             `json:"eventid_2"`
-	Name               string            `json:"name"`
-	Date               time.Time         `json:"date"`
+	Scoreid            int32         `json:"scoreid"`
+	Endid              int32         `json:"endid"`
+	Arrownumber        int32         `json:"arrownumber"`
+	Score              string        `json:"score"`
+	Endid_2            int32         `json:"endid_2"`
+	Rangeid            int32         `json:"rangeid"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Finalscore         int32         `json:"finalscore"`
+	Staged             bool          `json:"staged"`
+	Rangeid_2          int32         `json:"rangeid_2"`
+	Roundid            int32         `json:"roundid"`
+	Distance           int32         `json:"distance"`
+	Targetsize         int32         `json:"targetsize"`
+	Roundid_2          int32         `json:"roundid_2"`
+	Eventid            int32         `json:"eventid"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Eventid_2          int32         `json:"eventid_2"`
+	Name               string        `json:"name"`
+	Date               time.Time     `json:"date"`
 }
 
 func (q *Queries) GetScoresByID(ctx context.Context, arg GetScoresByIDParams) ([]GetScoresByIDRow, error) {
