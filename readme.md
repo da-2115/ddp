@@ -1,7 +1,7 @@
 # ddp
 
-**Docker Usage** 
-Ensure you have docker + docker compose on your machine.
+#### Docker Usage
+Ensure you have docker + docker compose on your machine.  
 Then either use docker desktop (I don't know how to use it so good luck)
 or the docker cli
 
@@ -11,7 +11,7 @@ docker compose up --build # might need 'sudo' on mac/linux depending on setup
 ```
 then wait for it to say `Server listening http://127.0.0.1:8000`
 
-**Manual Usage** 
+#### Manual Usage 
 Expects a db to be running on localhost:3306
 with a user root, password 1234
 
