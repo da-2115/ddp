@@ -17,7 +17,7 @@ import (
 var tablesTmpl *template.Template
 
 func init() {
-	tablesTmpl = util.Unwrap(template.ParseFiles("views/tables.html"))
+	tablesTmpl = util.Unwrap(template.ParseFiles("views/scores/tables.html"))
 }
 
 func ScoresHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {

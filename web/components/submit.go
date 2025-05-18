@@ -17,7 +17,7 @@ var submitTmpl *template.Template
 var scoresMap map[string]int32
 
 func init() {
-	submitTmpl = util.Unwrap(template.ParseFiles("views/events-list.html", "views/submit-form.html"))
+	submitTmpl = util.Unwrap(template.ParseFiles("views/submit/events-list.html", "views/submit/submit-form.html"))
 	scoresMap = map[string]int32{
 		"X":  10,
 		"10": 10,
