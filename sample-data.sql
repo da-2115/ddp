@@ -1,7 +1,7 @@
 -- bcrypt hashed password is 'password'
 USE ARCHERYDB;
 INSERT INTO Member (ArcheryAustraliaID, PasswordHash, FirstName, DateOfBirth, Gender, ClubRecorder) VALUES
-('AA12345', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Alice', '1990-05-15', "Male", TRUE),
+('AA12345', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Alice', '2015-05-15', "Male", TRUE),
 ('AA12346', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Bob', '1985-08-22', "Female", FALSE),
 ('AA12347', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Charlie', '1992-12-30', "Male", TRUE),
 ('AA12348', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Diana', '1988-03-10', "Female", FALSE),
@@ -20,7 +20,7 @@ INSERT INTO Event (Name, Date) VALUES -- needs to be seperate or LAST_INSERT_ID 
 SET @event_id = LAST_INSERT_ID(); -- this grabs the last auto_inc,
 
 INSERT INTO `Round` (EventID, Division, Class, Gender) VALUES
-(@event_id, "Compound", "Under14", "Male");
+(@event_id, "Compound", "Open", "Male");
 
 SET @round_id = LAST_INSERT_ID();
 
