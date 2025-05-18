@@ -84,6 +84,8 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data.Q
 	}
 
 	tx.Commit()
+
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func SubmitEventsHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
