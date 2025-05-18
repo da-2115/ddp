@@ -176,7 +176,7 @@ func ViewAllScoresHandler(w http.ResponseWriter, r *http.Request, q *data.Querie
 		Page  int
 	}
 
-	scores, err := q.GetScoreByRound(context.Background(), int32(endID))
+	scores, err := q.GetScoreByEnd(context.Background(), int32(endID))
 
 	if err != nil {
 		http.Error(w, "", http.StatusInternalServerError)

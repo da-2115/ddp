@@ -16,7 +16,7 @@ INSERT INTO End (
     RangeID, ArcheryAustraliaID, FinalScore, Staged
 )
 VALUES (
-    ?, ?, ?, FALSE
+    ?, ?, ?, TRUE
 )
 `
 
@@ -118,6 +118,16 @@ type CreateScoreParams struct {
 
 func (q *Queries) CreateScore(ctx context.Context, arg CreateScoreParams) (sql.Result, error) {
 	return q.db.ExecContext(ctx, createScore, arg.Endid, arg.Arrownumber, arg.Score)
+}
+
+const deleteEnd = `-- name: DeleteEnd :exec
+DELETE FROM End
+WHERE EndID = ?
+`
+
+func (q *Queries) DeleteEnd(ctx context.Context, endid int32) error {
+	_, err := q.db.ExecContext(ctx, deleteEnd, endid)
+	return err
 }
 
 const deleteMember = `-- name: DeleteMember :exec
@@ -787,14 +797,14 @@ func (q *Queries) GetRoundsByID(ctx context.Context, arg GetRoundsByIDParams) ([
 	return items, nil
 }
 
-const getScoreByRound = `-- name: GetScoreByRound :many
+const getScoreByEnd = `-- name: GetScoreByEnd :many
 SELECT scoreid, endid, arrownumber, score
 FROM Score
 WHERE EndID = ?
 `
 
-func (q *Queries) GetScoreByRound(ctx context.Context, endid int32) ([]Score, error) {
-	rows, err := q.db.QueryContext(ctx, getScoreByRound, endid)
+func (q *Queries) GetScoreByEnd(ctx context.Context, endid int32) ([]Score, error) {
+	rows, err := q.db.QueryContext(ctx, getScoreByEnd, endid)
 	if err != nil {
 		return nil, err
 	}
@@ -919,4 +929,85 @@ func (q *Queries) GetScoresByID(ctx context.Context, arg GetScoresByIDParams) ([
 		return nil, err
 	}
 	return items, nil
+}
+
+const getStagedEnds = `-- name: GetStagedEnds :many
+SELECT endid, en.rangeid, archeryaustraliaid, finalscore, staged, ra.rangeid, ra.roundid, distance, targetsize, r.roundid, r.eventid, class, division, gender, e.eventid, name, date
+FROM End en
+JOIN ` + "`" + `Range` + "`" + ` ra ON ra.RangeID = en.RangeID
+JOIN ` + "`" + `Round` + "`" + ` r ON r.RoundID = ra.RoundID
+JOIN Event e ON e.EventID = r.EventID
+WHERE en.Staged = TRUE
+`
+
+type GetStagedEndsRow struct {
+	Endid              int32         `json:"endid"`
+	Rangeid            int32         `json:"rangeid"`
+	Archeryaustraliaid string        `json:"archeryaustraliaid"`
+	Finalscore         int32         `json:"finalscore"`
+	Staged             bool          `json:"staged"`
+	Rangeid_2          int32         `json:"rangeid_2"`
+	Roundid            int32         `json:"roundid"`
+	Distance           int32         `json:"distance"`
+	Targetsize         int32         `json:"targetsize"`
+	Roundid_2          int32         `json:"roundid_2"`
+	Eventid            int32         `json:"eventid"`
+	Class              RoundClass    `json:"class"`
+	Division           RoundDivision `json:"division"`
+	Gender             RoundGender   `json:"gender"`
+	Eventid_2          int32         `json:"eventid_2"`
+	Name               string        `json:"name"`
+	Date               time.Time     `json:"date"`
+}
+
+func (q *Queries) GetStagedEnds(ctx context.Context) ([]GetStagedEndsRow, error) {
+	rows, err := q.db.QueryContext(ctx, getStagedEnds)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetStagedEndsRow
+	for rows.Next() {
+		var i GetStagedEndsRow
+		if err := rows.Scan(
+			&i.Endid,
+			&i.Rangeid,
+			&i.Archeryaustraliaid,
+			&i.Finalscore,
+			&i.Staged,
+			&i.Rangeid_2,
+			&i.Roundid,
+			&i.Distance,
+			&i.Targetsize,
+			&i.Roundid_2,
+			&i.Eventid,
+			&i.Class,
+			&i.Division,
+			&i.Gender,
+			&i.Eventid_2,
+			&i.Name,
+			&i.Date,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const stageEnd = `-- name: StageEnd :exec
+UPDATE End
+SET Staged = FALSE
+WHERE EndID = ?
+`
+
+func (q *Queries) StageEnd(ctx context.Context, endid int32) error {
+	_, err := q.db.ExecContext(ctx, stageEnd, endid)
+	return err
 }

@@ -14,6 +14,23 @@ INSERT INTO Member (
 DELETE FROM Member
 WHERE ArcheryAustraliaID = ?;
 
+-- name: GetStagedEnds :many
+SELECT *
+FROM End en
+JOIN `Range` ra ON ra.RangeID = en.RangeID
+JOIN `Round` r ON r.RoundID = ra.RoundID
+JOIN Event e ON e.EventID = r.EventID
+WHERE en.Staged = TRUE;
+
+-- name: StageEnd :exec
+UPDATE End
+SET Staged = FALSE
+WHERE EndID = ?;
+
+-- name: DeleteEnd :exec
+DELETE FROM End
+WHERE EndID = ?;
+
 -- name: GetAllEvents :many
 SELECT *
 FROM Event
@@ -41,7 +58,7 @@ WHERE RangeID = ?
 LIMIT ?
 OFFSET ?;
 
--- name: GetScoreByRound :many
+-- name: GetScoreByEnd :many
 SELECT *
 FROM Score
 WHERE EndID = ?;
@@ -159,7 +176,7 @@ INSERT INTO End (
     RangeID, ArcheryAustraliaID, FinalScore, Staged
 )
 VALUES (
-    ?, ?, ?, FALSE
+    ?, ?, ?, TRUE
 );
 
 -- name: CreateScore :execresult

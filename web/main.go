@@ -97,6 +97,21 @@ func main() {
 		components.ViewAllScoresHandler(w, r, query)
 	})))
 
+	// Stage-End Page
+	mux.Handle("GET /stage.html", adminAuth(static))
+	mux.Handle("GET /components/stage-list", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.StageEndListHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/stage-score", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.StageScoreHandler(w, r, query)
+	})))
+	mux.Handle("POST /api/stage", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.StageEndHandler(w, r, query)
+	})))
+	mux.Handle("DELETE /api/stage", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.DeleteEndHandler(w, r, query)
+	})))
+
 	// Define Server
 	srv := &http.Server{
 		Addr:    ":8000",

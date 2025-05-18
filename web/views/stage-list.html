@@ -1,0 +1,50 @@
+{{ block "stage" . }}
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>EventID</th>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>ArcheryAustraliaID</th>
+                <th>EndID</th>
+                <th>Total Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range . }}
+            <tr hx-target="#app" hx-swap="outerHTML" hx-get="/components/stage-score?end_id={{ .Endid }}">
+                <td>{{.Eventid}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Date}}
+                <td>{{.Archeryaustraliaid}}</td>
+                <td>{{.Endid}}</td>
+                <td>{{.Finalscore}}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+{{ block "score" . }}
+<div id="app">
+    <table>
+        <thead>
+            <th>Arrow #</th>
+            <th>Score</th>
+        </thead>
+        <tbody>
+            {{ range .Rows }}
+            <tr>
+                <td>{{ .Arrownumber }}</td>
+                <td>{{ .Score }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+
+    <button class="stage-btns" hx-target="#app" hx-swap="outerHTML" hx-get="/components/stage-list">Back</button>
+    <button class="stage-btns" hx-target="#app" hx-swap="outerHTML" hx-confirm="Are you sure confirm?" hx-post="/api/stage" name="end_id" value="{{ .Endid }}">Confirm</button>
+    <button class="stage-btns" hx-target="#app" hx-swap="outerHTML" hx-confirm="Are you sure delete?" hx-delete="/api/stage" name="end_id" value="{{ .Endid }}">Delete</button>
+</div>
+{{ end }}
