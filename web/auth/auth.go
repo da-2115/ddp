@@ -68,7 +68,7 @@ func AdminMiddleware(next http.Handler) http.Handler {
 
 		if s, exists := SessionMap[c.Value]; exists {
 			if !s.Admin {
-				http.Redirect(w, r, "/"+r.URL.Path[1:], http.StatusSeeOther)
+				http.Error(w, "You must be a club recorder to view this page", http.StatusForbidden)
 				return
 			}
 		}

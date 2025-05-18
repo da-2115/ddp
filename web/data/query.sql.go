@@ -130,6 +130,84 @@ func (q *Queries) DeleteMember(ctx context.Context, archeryaustraliaid string) e
 	return err
 }
 
+const getAllEvents = `-- name: GetAllEvents :many
+SELECT eventid, name, date
+FROM Event
+LIMIT ?
+OFFSET ?
+`
+
+type GetAllEventsParams struct {
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) GetAllEvents(ctx context.Context, arg GetAllEventsParams) ([]Event, error) {
+	rows, err := q.db.QueryContext(ctx, getAllEvents, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Event
+	for rows.Next() {
+		var i Event
+		if err := rows.Scan(&i.Eventid, &i.Name, &i.Date); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getEndByRound = `-- name: GetEndByRound :many
+SELECT endid, rangeid, archeryaustraliaid, finalscore, staged
+FROM End
+WHERE RangeID = ?
+LIMIT ?
+OFFSET ?
+`
+
+type GetEndByRoundParams struct {
+	Rangeid int32 `json:"rangeid"`
+	Limit   int32 `json:"limit"`
+	Offset  int32 `json:"offset"`
+}
+
+func (q *Queries) GetEndByRound(ctx context.Context, arg GetEndByRoundParams) ([]End, error) {
+	rows, err := q.db.QueryContext(ctx, getEndByRound, arg.Rangeid, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []End
+	for rows.Next() {
+		var i End
+		if err := rows.Scan(
+			&i.Endid,
+			&i.Rangeid,
+			&i.Archeryaustraliaid,
+			&i.Finalscore,
+			&i.Staged,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getEndsByID = `-- name: GetEndsByID :many
 SELECT endid, en.rangeid, archeryaustraliaid, finalscore, staged, ra.rangeid, ra.roundid, distance, targetsize, r.roundid, r.eventid, class, division, gender, e.eventid, name, date
 FROM End en
@@ -206,41 +284,6 @@ func (q *Queries) GetEndsByID(ctx context.Context, arg GetEndsByIDParams) ([]Get
 			&i.Name,
 			&i.Date,
 		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const getEvents = `-- name: GetEvents :many
-SELECT eventid, name, date
-FROM Event
-LIMIT ?
-OFFSET ?
-`
-
-type GetEventsParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) GetEvents(ctx context.Context, arg GetEventsParams) ([]Event, error) {
-	rows, err := q.db.QueryContext(ctx, getEvents, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Event
-	for rows.Next() {
-		var i Event
-		if err := rows.Scan(&i.Eventid, &i.Name, &i.Date); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -408,6 +451,48 @@ func (q *Queries) GetPracticeEventsByID(ctx context.Context, arg GetPracticeEven
 	return items, nil
 }
 
+const getRangeByRound = `-- name: GetRangeByRound :many
+SELECT rangeid, roundid, distance, targetsize
+FROM ` + "`" + `Range` + "`" + `
+WHERE RoundID = ?
+LIMIT ?
+OFFSET ?
+`
+
+type GetRangeByRoundParams struct {
+	Roundid int32 `json:"roundid"`
+	Limit   int32 `json:"limit"`
+	Offset  int32 `json:"offset"`
+}
+
+func (q *Queries) GetRangeByRound(ctx context.Context, arg GetRangeByRoundParams) ([]Range, error) {
+	rows, err := q.db.QueryContext(ctx, getRangeByRound, arg.Roundid, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Range
+	for rows.Next() {
+		var i Range
+		if err := rows.Scan(
+			&i.Rangeid,
+			&i.Roundid,
+			&i.Distance,
+			&i.Targetsize,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getRangesByID = `-- name: GetRangesByID :many
 SELECT ra.rangeid, ra.roundid, distance, targetsize, r.roundid, r.eventid, class, division, gender, e.eventid, name, date, endid, en.rangeid, archeryaustraliaid, finalscore, staged
 FROM ` + "`" + `Range` + "`" + ` ra
@@ -495,34 +580,35 @@ func (q *Queries) GetRangesByID(ctx context.Context, arg GetRangesByIDParams) ([
 	return items, nil
 }
 
-const getRangesByRound = `-- name: GetRangesByRound :many
-SELECT rangeid, roundid, distance, targetsize
-FROM ` + "`" + `Range` + "`" + ` ra
-WHERE ra.RoundID = ?
+const getRoundByEvent = `-- name: GetRoundByEvent :many
+SELECT roundid, eventid, class, division, gender
+FROM ` + "`" + `Round` + "`" + `
+WHERE EventID = ?
 LIMIT ?
 OFFSET ?
 `
 
-type GetRangesByRoundParams struct {
-	Roundid int32 `json:"roundid"`
+type GetRoundByEventParams struct {
+	Eventid int32 `json:"eventid"`
 	Limit   int32 `json:"limit"`
 	Offset  int32 `json:"offset"`
 }
 
-func (q *Queries) GetRangesByRound(ctx context.Context, arg GetRangesByRoundParams) ([]Range, error) {
-	rows, err := q.db.QueryContext(ctx, getRangesByRound, arg.Roundid, arg.Limit, arg.Offset)
+func (q *Queries) GetRoundByEvent(ctx context.Context, arg GetRoundByEventParams) ([]Round, error) {
+	rows, err := q.db.QueryContext(ctx, getRoundByEvent, arg.Eventid, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Range
+	var items []Round
 	for rows.Next() {
-		var i Range
+		var i Round
 		if err := rows.Scan(
-			&i.Rangeid,
 			&i.Roundid,
-			&i.Distance,
-			&i.Targetsize,
+			&i.Eventid,
+			&i.Class,
+			&i.Division,
+			&i.Gender,
 		); err != nil {
 			return nil, err
 		}
@@ -687,6 +773,40 @@ func (q *Queries) GetRoundsByID(ctx context.Context, arg GetRoundsByIDParams) ([
 			&i.Archeryaustraliaid,
 			&i.Finalscore,
 			&i.Staged,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getScoreByRound = `-- name: GetScoreByRound :many
+SELECT scoreid, endid, arrownumber, score
+FROM Score
+WHERE EndID = ?
+`
+
+func (q *Queries) GetScoreByRound(ctx context.Context, endid int32) ([]Score, error) {
+	rows, err := q.db.QueryContext(ctx, getScoreByRound, endid)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Score
+	for rows.Next() {
+		var i Score
+		if err := rows.Scan(
+			&i.Scoreid,
+			&i.Endid,
+			&i.Arrownumber,
+			&i.Score,
 		); err != nil {
 			return nil, err
 		}

@@ -120,7 +120,7 @@ func SubmitEventsHandler(w http.ResponseWriter, r *http.Request, q *data.Queries
 		return
 	}
 
-	events, err := q.GetEvents(context.Background(), data.GetEventsParams{
+	events, err := q.GetAllEvents(context.Background(), data.GetAllEventsParams{
 		Limit:  10,
 		Offset: (int32(pageNum) - 1) * 10,
 	})
@@ -198,7 +198,7 @@ func SubmitRangesHandler(w http.ResponseWriter, r *http.Request, q *data.Queries
 		return
 	}
 
-	ranges, err := q.GetRangesByRound(context.Background(), data.GetRangesByRoundParams{
+	ranges, err := q.GetRangeByRound(context.Background(), data.GetRangeByRoundParams{
 		Roundid: int32(roundIDNum),
 		Limit:   10,
 		Offset:  (int32(pageNum) - 1) * 10,

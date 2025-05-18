@@ -14,11 +14,37 @@ INSERT INTO Member (
 DELETE FROM Member
 WHERE ArcheryAustraliaID = ?;
 
--- name: GetEvents :many
+-- name: GetAllEvents :many
 SELECT *
 FROM Event
 LIMIT ?
 OFFSET ?;
+
+-- name: GetRoundByEvent :many
+SELECT *
+FROM `Round`
+WHERE EventID = ?
+LIMIT ?
+OFFSET ?;
+
+-- name: GetRangeByRound :many
+SELECT *
+FROM `Range`
+WHERE RoundID = ?
+LIMIT ?
+OFFSET ?;
+
+-- name: GetEndByRound :many
+SELECT *
+FROM End
+WHERE RangeID = ?
+LIMIT ?
+OFFSET ?;
+
+-- name: GetScoreByRound :many
+SELECT *
+FROM Score
+WHERE EndID = ?;
 
 -- name: GetRounds :many
 SELECT  *
@@ -37,12 +63,6 @@ WHERE m.ArcheryAustraliaID = ? AND r.EventID = ? AND m.Gender = r.Gender
 LIMIT ?
 OFFSET ?;
 
--- name: GetRangesByRound :many
-SELECT *
-FROM `Range` ra
-WHERE ra.RoundID = ?
-LIMIT ?
-OFFSET ?;
 
 -- name: GetEventsByID :many
 SELECT *
