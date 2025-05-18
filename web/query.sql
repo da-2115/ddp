@@ -51,6 +51,7 @@ JOIN `Round` r ON e.EventID = r.EventID
 JOIN `Range` ra ON r.RoundID = ra.RoundID
 JOIN End en ON ra.RangeID = en.RangeID
 WHERE en.ArcheryAustraliaID = ?
+GROUP BY e.EventID
 LIMIT ?
 OFFSET ?;
 
@@ -61,6 +62,7 @@ JOIN Event e ON e.EventID = r.EventID
 JOIN `Range` ra ON r.RoundID = ra.RoundID
 JOIN End en ON ra.RangeID = en.RangeID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ?
+GROUP BY r.RoundID
 LIMIT ?
 OFFSET ?;
 
@@ -71,6 +73,7 @@ JOIN `Round` r ON r.RoundID = ra.RoundID
 JOIN Event e ON e.EventID = r.EventID
 JOIN End en ON ra.RangeID = en.RangeID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ?
+GROUP BY ra.RangeID
 LIMIT ?
 OFFSET ?;
 
@@ -81,6 +84,7 @@ JOIN `Range` ra ON ra.RangeID = en.RangeID
 JOIN `Round` r ON r.RoundID = ra.RoundID
 JOIN Event e ON e.EventID = r.EventID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ? AND en.RangeID = ?
+GROUP BY en.EndID
 LIMIT ?
 OFFSET ?;
 
@@ -92,14 +96,16 @@ JOIN `Range` ra ON ra.RangeID = en.RangeID
 JOIN `Round` r ON r.RoundID = ra.RoundID
 JOIN Event e ON e.EventID = r.EventID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ? AND en.RangeID = ? AND en.EndID = ?
+GROUP BY s.ScoreID
 LIMIT ?
 OFFSET ?;
 
 -- name: GetPracticeEventsByID :many
-SELECT e.*
+SELECT *
 FROM Event e
 JOIN PracticeEvent pe ON e.EventID = pe.EventID
 WHERE pe.ArcheryAustraliaID = ?
+GROUP BY e.EventID
 LIMIT ?
 OFFSET ?;
 

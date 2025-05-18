@@ -137,6 +137,7 @@ JOIN ` + "`" + `Range` + "`" + ` ra ON ra.RangeID = en.RangeID
 JOIN ` + "`" + `Round` + "`" + ` r ON r.RoundID = ra.RoundID
 JOIN Event e ON e.EventID = r.EventID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ? AND en.RangeID = ?
+GROUP BY en.EndID
 LIMIT ?
 OFFSET ?
 `
@@ -260,6 +261,7 @@ JOIN ` + "`" + `Round` + "`" + ` r ON e.EventID = r.EventID
 JOIN ` + "`" + `Range` + "`" + ` ra ON r.RoundID = ra.RoundID
 JOIN End en ON ra.RangeID = en.RangeID
 WHERE en.ArcheryAustraliaID = ?
+GROUP BY e.EventID
 LIMIT ?
 OFFSET ?
 `
@@ -352,10 +354,11 @@ func (q *Queries) GetMemberByID(ctx context.Context, archeryaustraliaid string) 
 }
 
 const getPracticeEventsByID = `-- name: GetPracticeEventsByID :many
-SELECT e.eventid, e.name, e.date
+SELECT e.eventid, name, date, practiceid, pe.eventid, archeryaustraliaid
 FROM Event e
 JOIN PracticeEvent pe ON e.EventID = pe.EventID
 WHERE pe.ArcheryAustraliaID = ?
+GROUP BY e.EventID
 LIMIT ?
 OFFSET ?
 `
@@ -366,16 +369,32 @@ type GetPracticeEventsByIDParams struct {
 	Offset             int32  `json:"offset"`
 }
 
-func (q *Queries) GetPracticeEventsByID(ctx context.Context, arg GetPracticeEventsByIDParams) ([]Event, error) {
+type GetPracticeEventsByIDRow struct {
+	Eventid            int32     `json:"eventid"`
+	Name               string    `json:"name"`
+	Date               time.Time `json:"date"`
+	Practiceid         int32     `json:"practiceid"`
+	Eventid_2          int32     `json:"eventid_2"`
+	Archeryaustraliaid string    `json:"archeryaustraliaid"`
+}
+
+func (q *Queries) GetPracticeEventsByID(ctx context.Context, arg GetPracticeEventsByIDParams) ([]GetPracticeEventsByIDRow, error) {
 	rows, err := q.db.QueryContext(ctx, getPracticeEventsByID, arg.Archeryaustraliaid, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Event
+	var items []GetPracticeEventsByIDRow
 	for rows.Next() {
-		var i Event
-		if err := rows.Scan(&i.Eventid, &i.Name, &i.Date); err != nil {
+		var i GetPracticeEventsByIDRow
+		if err := rows.Scan(
+			&i.Eventid,
+			&i.Name,
+			&i.Date,
+			&i.Practiceid,
+			&i.Eventid_2,
+			&i.Archeryaustraliaid,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -396,6 +415,7 @@ JOIN ` + "`" + `Round` + "`" + ` r ON r.RoundID = ra.RoundID
 JOIN Event e ON e.EventID = r.EventID
 JOIN End en ON ra.RangeID = en.RangeID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ?
+GROUP BY ra.RangeID
 LIMIT ?
 OFFSET ?
 `
@@ -603,6 +623,7 @@ JOIN Event e ON e.EventID = r.EventID
 JOIN ` + "`" + `Range` + "`" + ` ra ON r.RoundID = ra.RoundID
 JOIN End en ON ra.RangeID = en.RangeID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ?
+GROUP BY r.RoundID
 LIMIT ?
 OFFSET ?
 `
@@ -688,6 +709,7 @@ JOIN ` + "`" + `Range` + "`" + ` ra ON ra.RangeID = en.RangeID
 JOIN ` + "`" + `Round` + "`" + ` r ON r.RoundID = ra.RoundID
 JOIN Event e ON e.EventID = r.EventID
 WHERE en.ArcheryAustraliaID = ? AND e.EventID = ? AND r.RoundID = ? AND en.RangeID = ? AND en.EndID = ?
+GROUP BY s.ScoreID
 LIMIT ?
 OFFSET ?
 `
