@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Round (
     RoundID INT AUTO_INCREMENT PRIMARY KEY,
     EventID INT NOT NULL,
     Class ENUM('Under14', 'Under16', 'Under18', 'Under21', 'Open', '50Plus', '60Plus', '70Plus') NOT NULL,
-    Division ENUM ('Recurve', 'Compound', 'RecurveBarebow', 'CompoundBarebow', 'Longbow'),
+    Division ENUM ('Recurve', 'Compound', 'RecurveBarebow', 'CompoundBarebow', 'Longbow') NOT NULL,
     Gender ENUM('Male', 'Female') NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Event(EventID)
 );
