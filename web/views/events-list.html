@@ -61,7 +61,7 @@
         <tbody>
             {{range .Rows }}
             <tr hx-target="#app" hx-swap="outerHTML"
-                hx-get="/components/submit-form&round_id={{ .Roundid }}&range_id={{ .Rangeid }}"
+                hx-get="/components/submit-form?round_id={{ .Roundid }}&range_id={{ .Rangeid }}"
                 hx-redirect="true">
                 <td>{{.Rangeid}}</td>
                 <td>{{.Distance}}</td>

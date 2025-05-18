@@ -61,14 +61,18 @@ func main() {
 
 	mux.Handle("GET /submit.html", auth.AuthMiddleware(static))
 	mux.Handle("GET /components/events-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			components.SubmitEventsHandler(w,r,query)
-		})))
+		components.SubmitEventsHandler(w, r, query)
+	})))
 	mux.Handle("GET /components/rounds-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			components.SubmitRoundsHandler(w,r,query)
-		})))
+		components.SubmitRoundsHandler(w, r, query)
+	})))
 	mux.Handle("GET /components/ranges-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			components.SubmitRangesHandler(w,r,query)
-		})))
+		components.SubmitRangesHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/submit-form", auth.AuthMiddleware(http.HandlerFunc(components.SubmitFormHandler)))
+	mux.Handle("POST /api/add-score", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.SubmitHandler(w, r, db, query)
+	})))
 
 	srv := &http.Server{
 		Addr:    ":8000",

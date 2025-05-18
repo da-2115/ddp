@@ -11,6 +11,25 @@ import (
 	"time"
 )
 
+const createEnd = `-- name: CreateEnd :execresult
+INSERT INTO End (
+    RangeID, ArcheryAustraliaID, FinalScore, Staged
+)
+VALUES (
+    ?, ?, ?, FALSE
+)
+`
+
+type CreateEndParams struct {
+	Rangeid            int32  `json:"rangeid"`
+	Archeryaustraliaid string `json:"archeryaustraliaid"`
+	Finalscore         int32  `json:"finalscore"`
+}
+
+func (q *Queries) CreateEnd(ctx context.Context, arg CreateEndParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createEnd, arg.Rangeid, arg.Archeryaustraliaid, arg.Finalscore)
+}
+
 const createEvent = `-- name: CreateEvent :execresult
 INSERT INTO Event (
     Name, Date
@@ -80,6 +99,25 @@ func (q *Queries) CreateRound(ctx context.Context, arg CreateRoundParams) (sql.R
 		arg.Class,
 		arg.Gender,
 	)
+}
+
+const createScore = `-- name: CreateScore :execresult
+INSERT INTO Score (
+    EndID, ArrowNumber, Score
+)
+VALUES (
+    ?, ?, ?
+)
+`
+
+type CreateScoreParams struct {
+	Endid       int32  `json:"endid"`
+	Arrownumber int32  `json:"arrownumber"`
+	Score       string `json:"score"`
+}
+
+func (q *Queries) CreateScore(ctx context.Context, arg CreateScoreParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createScore, arg.Endid, arg.Arrownumber, arg.Score)
 }
 
 const deleteMember = `-- name: DeleteMember :exec
@@ -492,7 +530,7 @@ JOIN Member m ON (
         (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 60 AND r.Class IN ('Open', '50Plus', '60Plus')) OR
         (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 70 AND r.Class IN ('Open', '50Plus', '60Plus', '70Plus'))
     )
-WHERE m.ArcheryAustraliaID = ? AND r.EventID = ?
+WHERE m.ArcheryAustraliaID = ? AND r.EventID = ? AND m.Gender = r.Gender
 LIMIT ?
 OFFSET ?
 `

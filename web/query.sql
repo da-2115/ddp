@@ -33,7 +33,7 @@ JOIN Member m ON (
         (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 60 AND r.Class IN ('Open', '50Plus', '60Plus')) OR
         (YEAR(CURDATE()) - YEAR(m.DateOfBirth) >= 70 AND r.Class IN ('Open', '50Plus', '60Plus', '70Plus'))
     )
-WHERE m.ArcheryAustraliaID = ? AND r.EventID = ?
+WHERE m.ArcheryAustraliaID = ? AND r.EventID = ? AND m.Gender = r.Gender
 LIMIT ?
 OFFSET ?;
 
@@ -126,3 +126,20 @@ INSERT INTO `Range` (
 VALUES (
     ?, ?, ?
 );
+
+
+-- name: CreateEnd :execresult
+INSERT INTO End (
+    RangeID, ArcheryAustraliaID, FinalScore, Staged
+)
+VALUES (
+    ?, ?, ?, FALSE
+);
+
+-- name: CreateScore :execresult
+INSERT INTO Score (
+    EndID, ArrowNumber, Score
+)
+VALUES (
+    ?, ?, ?
+)
