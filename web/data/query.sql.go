@@ -76,6 +76,25 @@ func (q *Queries) CreateMember(ctx context.Context, arg CreateMemberParams) (sql
 	)
 }
 
+const createRange = `-- name: CreateRange :execresult
+INSERT INTO ` + "`" + `Range` + "`" + ` (
+    RoundID, Distance, TargetSize
+)
+VALUES (
+    ?, ?, ?
+)
+`
+
+type CreateRangeParams struct {
+	Roundid    int32 `json:"roundid"`
+	Distance   int32 `json:"distance"`
+	Targetsize int32 `json:"targetsize"`
+}
+
+func (q *Queries) CreateRange(ctx context.Context, arg CreateRangeParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createRange, arg.Roundid, arg.Distance, arg.Targetsize)
+}
+
 const createRound = `-- name: CreateRound :execresult
 INSERT INTO ` + "`" + `Round` + "`" + ` (
     EventID, Division, Class, Gender

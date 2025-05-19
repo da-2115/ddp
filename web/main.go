@@ -78,7 +78,7 @@ func main() {
 		components.SubmitHandler(w, r, db, query)
 	})))
 
-	// View-All-Scores Page
+	// View-All-Scores Page - Admin
 	adminAuth := middleware.CreateStack(auth.AuthMiddleware, auth.AdminMiddleware) // checks auth then if admin
 	mux.Handle("GET /view-all.html", adminAuth(static))
 	mux.Handle("GET /components/view-all-events", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -97,7 +97,7 @@ func main() {
 		components.ViewAllScoresHandler(w, r, query)
 	})))
 
-	// Stage-End Page
+	// Stage-End Page - Admin
 	mux.Handle("GET /stage.html", adminAuth(static))
 	mux.Handle("GET /components/stage-list", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.StageEndListHandler(w, r, query)
@@ -110,6 +110,21 @@ func main() {
 	})))
 	mux.Handle("DELETE /api/stage", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.DeleteEndHandler(w, r, query)
+	})))
+
+	// Add-Event Page - Admin
+	mux.Handle("GET /add-event.html", adminAuth(static))
+	mux.Handle("POST /api/add-event", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddEventHandler(w, r, db, query)
+	})))
+	mux.Handle("GET /components/add-event-form", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddEventFormHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/add-round", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddRoundFormHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/add-range", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddRangeFormHandler(w, r, query)
 	})))
 
 	// Define Server

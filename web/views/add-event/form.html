@@ -1,0 +1,76 @@
+{{ block "form" . }}
+<div id="app" class="form-container">
+    <form class="login-form" method="post" action="/api/add-event">
+        <label for="event-name">Event Name:</label>
+        <input class="text" id="event-name" name="event-name" type="text">
+
+        <label for="event-date">Event Date:</label>
+        <input class="text" id="event-date" name="event-date" type="date">
+
+        <div id="rounds" hx-on="htmx:afterSwap incRound()">
+            <div id="round" hx-get="/components/add-round?num=1" hx-swap="outerHTML" hx-target="#round"
+                hx-trigger="load"></div>
+        </div>
+        <button id="roundButton" hx-get="/components/add-round?num=2" hx-target="#rounds" hx-swap="beforeend"
+            hx-on:click="incRound()">Add Round</button>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        let n = 2; // button starts with ?num=2
+        function incRound() {
+            n++;
+            let get = roundButton.getAttribute("hx-get");
+            get = get.slice(0, -1) + n; // change the number
+            roundButton.setAttribute("hx-get", get);
+            htmx.process(roundButton) // reprocess after changing attr
+        }
+    </script>
+</div>
+{{ end }}
+{{ block "round" . }}
+<div id="round-{{ . }}">
+    <label for="round-{{ . }}-class">Round Class:</label>
+    <select class="text" name="round-{{ . }}-class" id="round-{{ . }}-class" required>
+        <option value="" disabled selected>Select Class</option>
+        <option value="Under14">Under 14</option>
+        <option value="Under16">Under 16</option>
+        <option value="Under18">Under 18</option>
+        <option value="Under21">Under 21</option>
+        <option value="Open">Open</option>
+        <option value="50Plus">50 Plus</option>
+        <option value="60Plus">60 Plus</option>
+        <option value="70Plus">70 Plus</option>
+    </select>
+
+    <label for="round-{{ . }}-division">Round Divison:</label>
+    <select class="text" name="round-{{ . }}-division" id="round-{{ . }}-division" required>
+        <option value="" disabled selected>Select Division</option>
+        <option value="Recurve">Recurve</option>
+        <option value="Compound">Compound</option>
+        <option value="Longbow">Longbow</option>
+        <option value="RecurveBarebow">RecurveBarebow</option>
+        <option value="CompoundBarebow">CompoundBarebow</option>
+    </select>
+
+    <label for="round-{{ . }}-gender">Round Divison:</label>
+    <select class="text" name="round-{{ . }}-gender" id="round-{{ . }}-gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    <div id="ranges-{{.}}">
+    </div>
+    <button id="rangeButton_{{ . }}" hx-get="/components/add-range?num={{.}}" hx-target="#ranges-{{.}}"
+        hx-swap="beforeend">Add
+        Range</button>
+</div>
+{{ end }}
+{{ block "range" . }}
+<div id="range-{{ . }}">
+    <label for="range-{{ . }}-distance">Distance:</label>
+    <input id="range-{{ . }}-distance" name="range-{{ . }}-distance[]" type="number">
+    <label for="range-{{ . }}-target">Target Size:</label>
+    <input id="range-{{ . }}-target" name="range-{{ . }}-target[]" type="number">
+</div>
+{{ end }}

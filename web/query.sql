@@ -162,7 +162,7 @@ VALUES (
     ?, ?, ?, ?
 );
 
--- CreateRange :execresult
+-- name: CreateRange :execresult
 INSERT INTO `Range` (
     RoundID, Distance, TargetSize
 )
