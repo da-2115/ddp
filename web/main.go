@@ -116,6 +116,7 @@ func main() {
 	mux.Handle("GET /add-event.html", adminAuth(static))
 	mux.Handle("POST /api/add-event", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.AddEventHandler(w, r, db, query)
+		http.Redirect(w, r, "/view-all.html", http.StatusSeeOther)
 	})))
 	mux.Handle("GET /components/add-event-form", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.AddEventFormHandler(w, r, query)
