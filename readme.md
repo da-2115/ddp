@@ -14,10 +14,14 @@ then wait for it to say `Server listening http://127.0.0.1:8000`
 #####
 Database Details:  
 ```
-Login: root : 1234  
-       webapp_user : WebAppDB2025!
+Login: root : 1234  # admin user
+       webapp_user : WebAppDB2025! # restricted user
 ```
-
+Website Details:
+```
+Club Recorder Account: AA12345 : password
+Normal User: AA12346 : password
+```
 #### Manual Usage 
 Expects a db to be running on localhost:3306
 with a user root, password 1234
