@@ -11,6 +11,13 @@ docker compose up --build # might need 'sudo' on mac/linux depending on setup
 ```
 then wait for it to say `Server listening http://127.0.0.1:8000`
 
+#####
+Database Details:  
+```
+Login: root : 1234  
+       webapp_user : WebAppDB2025!
+```
+
 #### Manual Usage 
 Expects a db to be running on localhost:3306
 with a user root, password 1234
