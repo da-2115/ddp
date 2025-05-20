@@ -1,0 +1,11 @@
+{{ block "submit-form" . }}
+<div class="form-container">
+    <form class="login-form" action="/api/add-score" method="post">
+        <label for="arrow-list">Arrow List (Comma Seperated, X is bullseye):</label>
+        <input class="text" type="text" id="arrow-list" name="arrow-list" placeholder="X,X,3,2,10,5" required>
+
+        <input type="hidden" name="range-id" value="{{ . }}">
+        <input class="submit" type="submit" value="Submit">
+    </form>
+</div>
+{{ end }}

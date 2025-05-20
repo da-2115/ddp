@@ -1,4 +1,4 @@
-package main
+package auth
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 )
 
 // handles the login form. Logs in the user, gives them a cookie
-func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
+func LoginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
@@ -26,7 +26,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 	m, err := q.GetMemberByID(context.Background(), user)
 	if err != nil {
 		slog.Info("Login Request Invalid User", "user", user)
-		http.Redirect(w, r, "/login.html?next=" + next, http.StatusSeeOther)
+		http.Redirect(w, r, "/login.html?next="+next, http.StatusSeeOther)
 		return
 	}
 
@@ -42,8 +42,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 		}
 
 		cookieVal := base64.URLEncoding.EncodeToString(b)
-		sessionMap[cookieVal] = session{
+		SessionMap[cookieVal] = Session{
 			ArcheryAustraliaId: user,
+			Admin:              m.Clubrecorder,
 			Expires:            time.Now().Add(24 * time.Hour),
 		}
 
@@ -58,11 +59,11 @@ func loginHandler(w http.ResponseWriter, r *http.Request, q *data.Queries) {
 		})
 
 		slog.Info("Login success", "user", user, "next", next)
-		http.Redirect(w, r, "/" + next, http.StatusSeeOther)
+		http.Redirect(w, r, "/"+next, http.StatusSeeOther)
 		return
 	} else {
 		slog.Info("Login wrong password", "user", user)
-		http.Redirect(w, r, "/login.html?next=" + next, http.StatusSeeOther)
+		http.Redirect(w, r, "/login.html?next="+next, http.StatusSeeOther)
 		// ?next is used to redirect back after logging in
 		return
 	}

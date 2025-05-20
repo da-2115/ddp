@@ -7,7 +7,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/da-2115/ddp/web/auth"
+	"github.com/da-2115/ddp/web/components"
 	"github.com/da-2115/ddp/web/data"
+	"github.com/da-2115/ddp/web/middleware"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -21,14 +24,14 @@ func main() {
 	// Connect to the database / make sure it is reachable
 	var db *sql.DB
 	var err error
-    for {
-        db, err = sql.Open("mysql", dsn)
-        if err == nil {
-            err = db.Ping()
-        }
-        if err == nil {
-            break
-        }
+	for {
+		db, err = sql.Open("mysql", dsn)
+		if err == nil {
+			err = db.Ping()
+		}
+		if err == nil {
+			break
+		}
 		slog.Info("Waiting for database..", "err", err)
 		time.Sleep(2 * time.Second)
 	}
@@ -42,20 +45,89 @@ func main() {
 	// set up mux eg. the http requests and what funcs they should call
 	mux := http.NewServeMux()
 
+	// static files
 	static := http.FileServer(http.Dir("static"))
 	mux.Handle("GET /", static)
 
+	// login api
 	mux.HandleFunc("POST /api/login", func(w http.ResponseWriter, r *http.Request) {
-		loginHandler(w, r, query)
+		auth.LoginHandler(w, r, query)
 	})
+	mux.Handle("GET /api/login", auth.AuthMiddleware(http.HandlerFunc(auth.AuthTestHandler)))
 
-	mux.Handle("GET /api/login", authMiddleware(http.HandlerFunc(authTestHandler)))
+	// View-Scores Page
+	mux.Handle("GET /scores.html", auth.AuthMiddleware(static))
+	mux.Handle("GET /components/scores", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ScoresHandler(w, r, query)
+	})))
+	mux.HandleFunc("GET /components/nav", components.NavHandler)
 
-	mux.Handle("GET /scores.html", authMiddleware(static))
-	mux.Handle("GET /api/scores", authMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		scoresHandler(w, r, query)
+	// Submit-Scores Page
+	mux.Handle("GET /submit.html", auth.AuthMiddleware(static))
+	mux.Handle("GET /components/events-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.SubmitEventsHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/rounds-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.SubmitRoundsHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/ranges-list", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.SubmitRangesHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/submit-form", auth.AuthMiddleware(http.HandlerFunc(components.SubmitFormHandler)))
+	mux.Handle("POST /api/add-score", auth.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.SubmitHandler(w, r, db, query)
 	})))
 
+	// View-All-Scores Page - Admin
+	adminAuth := middleware.CreateStack(auth.AuthMiddleware, auth.AdminMiddleware) // checks auth then if admin
+	mux.Handle("GET /view-all.html", adminAuth(static))
+	mux.Handle("GET /components/view-all-events", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ViewAllEventsHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/view-all-rounds", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ViewAllRoundsHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/view-all-ranges", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ViewAllRangesHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/view-all-ends", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ViewAllEndsHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/view-all-scores", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ViewAllScoresHandler(w, r, query)
+	})))
+
+	// Stage-End Page - Admin
+	mux.Handle("GET /stage.html", adminAuth(static))
+	mux.Handle("GET /components/stage-list", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.StageEndListHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/stage-score", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.StageScoreHandler(w, r, query)
+	})))
+	mux.Handle("POST /api/stage", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.StageEndHandler(w, r, query)
+	})))
+	mux.Handle("DELETE /api/stage", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.DeleteEndHandler(w, r, query)
+	})))
+
+	// Add-Event Page - Admin
+	mux.Handle("GET /add-event.html", adminAuth(static))
+	mux.Handle("POST /api/add-event", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddEventHandler(w, r, db, query)
+	})))
+	mux.Handle("GET /components/add-event-form", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddEventFormHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/add-round", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddRoundFormHandler(w, r, query)
+	})))
+	mux.Handle("GET /components/add-range", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.AddRangeFormHandler(w, r, query)
+	})))
+
+	// Define Server
 	srv := &http.Server{
 		Addr:    ":8000",
 		Handler: mux,

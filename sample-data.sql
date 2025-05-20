@@ -1,12 +1,12 @@
 -- bcrypt hashed password is 'password'
 USE ARCHERYDB;
-INSERT INTO Member (ArcheryAustraliaID, PasswordHash, FirstName, DateOfBirth, Gender, ClubRecorder, DefaultDivision) VALUES
-('AA12345', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Alice', '1990-05-15', "Male", TRUE, 'Compound'),
-('AA12346', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Bob', '1985-08-22', "Female", FALSE, 'Recurve'),
-('AA12347', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Charlie', '1992-12-30', "Male", TRUE, 'Compound'),
-('AA12348', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Diana', '1988-03-10', "Female", FALSE, 'Recurve'),
-('AA12349', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Ethan', '1995-07-25', "Male", FALSE, 'Compound'),
-('AA12350', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Fiona', '1980-11-05', "Female", TRUE,'Recurve');
+INSERT INTO Member (ArcheryAustraliaID, PasswordHash, FirstName, DateOfBirth, Gender, ClubRecorder) VALUES
+('AA12345', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Alice', '2015-05-15', "Male", TRUE),
+('AA12346', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Bob', '1985-08-22', "Female", FALSE),
+('AA12347', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Charlie', '1992-12-30', "Male", TRUE),
+('AA12348', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Diana', '1988-03-10', "Female", FALSE),
+('AA12349', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Ethan', '1995-07-25', "Male", FALSE),
+('AA12350', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Fiona', '1980-11-05', "Female", TRUE);
 
 INSERT INTO Event (Name, Date) VALUES
 ("Practice Event 1", NOW()),
@@ -20,7 +20,7 @@ INSERT INTO Event (Name, Date) VALUES -- needs to be seperate or LAST_INSERT_ID 
 SET @event_id = LAST_INSERT_ID(); -- this grabs the last auto_inc,
 
 INSERT INTO `Round` (EventID, Division, Class, Gender) VALUES
-(@event_id, "Compound", "Under14", TRUE);
+(@event_id, "Compound", "Open", "Male");
 
 SET @round_id = LAST_INSERT_ID();
 
@@ -50,7 +50,7 @@ INSERT INTO Event (Name, Date) VALUES
 SET @event_id = LAST_INSERT_ID(); -- this grabs the last auto_inc,
 
 INSERT INTO `Round` (EventID, Division, Class, Gender) VALUES
-(@event_id, "Recurve", "Under16", TRUE);
+(@event_id, "Recurve", "Under16", "Male");
 
 SET @round_id = LAST_INSERT_ID();
 
@@ -73,12 +73,3 @@ INSERT INTO PracticeEvent (EventID, ArcheryAustraliaID) VALUES
 (1,'AA12345'),
 (2,'AA12345'),
 (3,'AA12345');
-
-SELECT *
-FROM `Range` ra
-JOIN `Round` r ON r.RoundID = ra.RoundID
-JOIN Event e ON e.EventID = r.EventID
-JOIN End en ON ra.RangeID = en.RangeID
-WHERE en.ArcheryAustraliaID = 'AA12345'
-LIMIT 10
-OFFSET 0;

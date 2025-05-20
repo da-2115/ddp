@@ -2,43 +2,14 @@
 CREATE DATABASE IF NOT EXISTS ARCHERYDB;
 USE ARCHERYDB;
 
-CREATE TABLE IF NOT EXISTS Class (
-    ClassID NVARCHAR(255) PRIMARY KEY
-);
-
-INSERT INTO Class(ClassID)
-VALUES
-    ("Under14"),
-    ("Under16"),
-    ("Under18"),
-    ("Under21"),
-    ("Open"),
-    ("50Plus"),
-    ("60Plus"),
-    ("70Plus");
-
-CREATE TABLE IF NOT EXISTS Division (
-    DivisionID NVARCHAR(255) PRIMARY KEY
-);
-
-INSERT INTO Division(DivisionID)
-VALUES
-    ("Recurve"),
-    ("Compound"),
-    ("RecurveBarebow"),
-    ("CompoundBarebow"),
-    ("Longbow");
-
 CREATE TABLE IF NOT EXISTS Member
 (
     ArcheryAustraliaID NVARCHAR(255) PRIMARY KEY NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
     FirstName NVARCHAR(255) NOT NULL,
     DateOfBirth DATE NOT NULL,
-	Gender ENUM('Male', 'Female') NOT NULL,
-    ClubRecorder BOOL NOT NULL,
-    DefaultDivision NVARCHAR(255) NOT NULL,
-    FOREIGN KEY (DefaultDivision) REFERENCES Division(DivisionID)
+    Gender ENUM('Male', 'Female') NOT NULL,
+    ClubRecorder BOOL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Event (
@@ -57,12 +28,10 @@ CREATE TABLE IF NOT EXISTS Championship (
 CREATE TABLE IF NOT EXISTS Round (
     RoundID INT AUTO_INCREMENT PRIMARY KEY,
     EventID INT NOT NULL,
-    Division NVARCHAR(255) NOT NULL,
-    Class NVARCHAR(255) NOT NULL,
-	Gender ENUM('Male', 'Female') NOT NULL,
-    FOREIGN KEY (EventID) REFERENCES Event(EventID),
-    FOREIGN KEY (Division) REFERENCES Division(DivisionID),
-    FOREIGN KEY (Class) REFERENCES Class(ClassID)
+    Class ENUM('Under14', 'Under16', 'Under18', 'Under21', 'Open', '50Plus', '60Plus', '70Plus') NOT NULL,
+    Division ENUM ('Recurve', 'Compound', 'RecurveBarebow', 'CompoundBarebow', 'Longbow') NOT NULL,
+    Gender ENUM('Male', 'Female') NOT NULL,
+    FOREIGN KEY (EventID) REFERENCES Event(EventID)
 );
 
 CREATE TABLE IF NOT EXISTS `Range` 
@@ -74,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `Range`
     FOREIGN KEY (RoundID) REFERENCES `Round`(RoundID)
 );
 
-CREATE TABLE PracticeEvent
+CREATE TABLE IF NOT EXISTS PracticeEvent
 (
     PracticeID INT AUTO_INCREMENT PRIMARY KEY,
     EventID INT NOT NULL,
@@ -100,5 +69,5 @@ CREATE TABLE IF NOT EXISTS Score
     EndID INT NOT NULL,
     ArrowNumber INT NOT NULL,
     Score NVARCHAR(255) NOT NULL,
-    FOREIGN KEY (EndID) REFERENCES End(EndID)
+    FOREIGN KEY (EndID) REFERENCES End(EndID) ON DELETE CASCADE
 );

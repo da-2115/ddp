@@ -1,29 +1,30 @@
-package main
+package auth
 
 import (
 	"net/http"
 	"time"
 )
 
-type session struct {
+type Session struct {
 	ArcheryAustraliaId string
+	Admin              bool
 	Expires            time.Time
 }
 
 // this is where we store the cookies on the server
-var sessionMap map[string]session
+var SessionMap map[string]Session
 
 func init() {
-	sessionMap = make(map[string]session)
+	SessionMap = make(map[string]Session)
 }
 
 // checks if the cookie exists on the server based on the `Expires` time.Time value
 func cookieIsValid(c *http.Cookie) bool {
-	if s, exists := sessionMap[c.Value]; exists {
+	if s, exists := SessionMap[c.Value]; exists {
 		if time.Now().Before(s.Expires) {
 			return true
 		} else {
-			delete(sessionMap, c.Value)
+			delete(SessionMap, c.Value)
 			return false
 		}
 	}
@@ -31,7 +32,7 @@ func cookieIsValid(c *http.Cookie) bool {
 }
 
 // auth middleware that checks to see if the user has a session valid cookie, kicks them to the login screen if they don't
-func authMiddleware(next http.Handler) http.Handler {
+func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("session_id")
 		if err != nil {
@@ -56,8 +57,40 @@ func authMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// Checks if requester is an admin (club recorder), expects AuthMiddleware to have already validated
+func AdminMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		c, err := r.Cookie("session_id")
+		if err != nil {
+			http.Error(w, "", http.StatusInternalServerError)
+			return
+		}
+
+		if s, exists := SessionMap[c.Value]; exists {
+			if !s.Admin {
+				http.Error(w, "You must be a club recorder to view this page", http.StatusForbidden)
+				return
+			}
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 // this is just a test handler for the button on the top right of the screen
-func authTestHandler(w http.ResponseWriter, r *http.Request) {
+func AuthTestHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
+
+	// as this is after ran after AuthMiddleware we know that the user is logged in
+	cookie, err := r.Cookie("session_id")
+	if err != nil {
+		http.Error(w, "", http.StatusInternalServerError)
+	}
+	if s, exists := SessionMap[cookie.Value]; exists {
+		if s.Admin {
+			w.Write([]byte("You are authenticated\nYou are a club recorder"))
+			return
+		}
+	}
 	w.Write([]byte("You are authenticated"))
 }

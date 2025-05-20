@@ -5,11 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/style.css" rel="stylesheet" />
-    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"
+        integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <nav hx-get="/components/nav" hx-swap="outerHTML" hx-trigger="load"></nav>
-    <h1>SCORES</h1>
-    <div id="app" hx-get="/components/scores?page=1&qType=event" hx-trigger="load" hx-swap="outerHTML"></div>
+    <div id="app" hx-get="/components/add-event-form" hx-swap="outerHTML" hx-trigger="load"></div>
 </body>

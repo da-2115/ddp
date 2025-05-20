@@ -124,3 +124,7 @@ tbody tr:hover {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+.stage-btns {
+    margin-bottom: 1em;
+}
