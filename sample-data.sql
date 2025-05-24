@@ -4,7 +4,7 @@ INSERT INTO Member (ArcheryAustraliaID, PasswordHash, FirstName, DateOfBirth, Ge
 ('AA12345', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Bob', '2015-05-15', "Male", TRUE), -- Privileged User
 ('AA12346', '$2a$10$2EHV1xRkBeXr1mo4rDeptOpTTSmDXNmTPWXpwrVD5G44p8QHA0ojC', 'Alice', '1985-08-22', "Female", FALSE); -- Normal User
 
-INSERT INTO Event (Name, Date) VALUES -- needs to be seperate or LAST_INSERT_ID would be 1, as it is based on the first input on a multi-insert
+INSERT INTO Event (EventName, Date) VALUES -- needs to be seperate or LAST_INSERT_ID would be 1, as it is based on the first input on a multi-insert
 ("Summer Event 1", NOW());
 
 SET @event_id = LAST_INSERT_ID(); -- this grabs the last auto_inc,
@@ -62,13 +62,13 @@ INSERT INTO Score (EndID, ArrowNumber, Score) VALUES
 (@end_id, 2, '7'),
 (@end_id, 3, 'X');
 
-INSERT INTO Event (Name, Date) VALUES
+INSERT INTO Event (EventName, Date) VALUES
 ("Summer Event 2", NOW());
 
 SET @event_id = LAST_INSERT_ID(); -- this grabs the last auto_inc,
 
 -- Championship
-INSERT INTO Championship (EventID, Name) VALUES
+INSERT INTO Championship (EventID, ChampionshipName) VALUES
 (@event_id, "Major Championship");
 
 INSERT INTO `Round` (EventID, Division, Class, Gender) VALUES
@@ -92,7 +92,7 @@ INSERT INTO Score (EndID, ArrowNumber, Score) VALUES
 (@end_id, 3, 'X');
 
 -- Create a new event
-INSERT INTO Event (Name, Date) VALUES
+INSERT INTO Event (EventName, Date) VALUES
 ("Summer Event 3", NOW());
 
 SET @event_id = LAST_INSERT_ID(); -- Get the last inserted event ID
@@ -164,7 +164,7 @@ INSERT INTO Score (EndID, ArrowNumber, Score) VALUES
 (@end_id, 3, '5'),
 (@end_id, 4, 'X');
 
-INSERT INTO Event (Name, Date) VALUES
+INSERT INTO Event (EventName, Date) VALUES
 ("Practice Event", NOW());
 
 SET @event_id = LAST_INSERT_ID();
