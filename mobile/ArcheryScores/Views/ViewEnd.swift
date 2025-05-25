@@ -21,13 +21,16 @@ struct ViewEnd: View
             VStack
             {
                 Text("End").font(.largeTitle).bold()
+                List {
+                    Text("End ID: \(end?.EndID ?? 0)").font(.title3).bold()
+                    Text("Final Score: \(end?.FinalScore ?? 0)")
+                    
+                }
                 
-                Text("End ID: \(end?.EndID ?? 0)").font(.title3).bold()
-                Text("Final Score: \(end?.FinalScore ?? 0)")
+                    Button("Go Back", action: { goBack() }).buttonStyle(.borderedProminent)
+                        .tint(.red)
+                        .controlSize(.large)
                 
-                Button("Go Back", action: { goBack() }).buttonStyle(.borderedProminent)
-                    .tint(.red)
-                    .controlSize(.large)
             }
             .onAppear
             {

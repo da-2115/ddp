@@ -39,11 +39,11 @@ struct AddScores: View {
                         )
                         addScore(newScore: newScore)
                     }
-
-                    Button("Go Back", action: { goBack() }).buttonStyle(.borderedProminent)
-                    .tint(.red)
-                    .controlSize(.large)
                 }
+            
+            Button("Go Back", action: { goBack() }).buttonStyle(.borderedProminent)
+            .tint(.red)
+            .controlSize(.large)
 
                 if let error = viewModel.errorMessage {
                     Text("Error: \(error)")

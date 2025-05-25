@@ -23,11 +23,6 @@ struct Login: View {
                     .tint(.green)
                     .controlSize(.large)
                 
-                Text("You are now logged in if this is green")
-                    .foregroundColor(isAuth ? .green : .red)
-                
-                
-                
                 if ( !errorMessage.isEmpty )
                 {
                     Text(errorMessage)

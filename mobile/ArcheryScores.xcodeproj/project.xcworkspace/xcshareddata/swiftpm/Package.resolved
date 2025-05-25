@@ -1,5 +1,5 @@
 {
-  "originHash" : "4528825951b6bfbb3e33fd65229502723aa5d84278f52522b4244118af1e2975",
+  "originHash" : "9b7cfe7fcd76ab93d0d58e41082ac458663f5508fa8b09762dfd7f9f32572d99",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -65,15 +65,6 @@
       }
     },
     {
-      "identity" : "fluent",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vapor/fluent.git",
-      "state" : {
-        "revision" : "223b27d04ab2b51c25503c9922eecbcdf6c12f89",
-        "version" : "4.12.0"
-      }
-    },
-    {
       "identity" : "fluent-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/fluent-kit.git",
@@ -89,24 +80,6 @@
       "state" : {
         "revision" : "52b7d863b884cbecfe61dd4eae2e7277992f0a35",
         "version" : "4.7.1"
-      }
-    },
-    {
-      "identity" : "leaf",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vapor/leaf.git",
-      "state" : {
-        "revision" : "d469584b9186851c5a4012d11325fb9db3207ebb",
-        "version" : "4.5.0"
-      }
-    },
-    {
-      "identity" : "leaf-kit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vapor/leaf-kit.git",
-      "state" : {
-        "revision" : "cf186d8f2ef33e16fd1dd78df36466c22c2e632f",
-        "version" : "1.13.1"
       }
     },
     {
