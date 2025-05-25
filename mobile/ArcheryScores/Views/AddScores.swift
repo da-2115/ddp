@@ -39,6 +39,10 @@ struct AddScores: View {
                         )
                         addScore(newScore: newScore)
                     }
+
+                    Button("Go Back", action: { goBack() }).buttonStyle(.borderedProminent)
+                    .tint(.red)
+                    .controlSize(.large)
                 }
 
                 if let error = viewModel.errorMessage {
@@ -55,6 +59,11 @@ struct AddScores: View {
         
     }
     
+    private func goBack() -> Void
+    {
+        visible = false
+    }
+
     private func addScore(newScore: Score) -> Void
     {
         viewModel.postScore(newScore)
