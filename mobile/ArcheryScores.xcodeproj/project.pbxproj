@@ -1,0 +1,683 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FC689C582DE176510063638C /* MySQLKit in Frameworks */ = {isa = PBXBuildFile; productRef = FC689C572DE176510063638C /* MySQLKit */; };
+		FCA94E0D2DE1AE2E00ABF462 /* RNCryptor in Frameworks */ = {isa = PBXBuildFile; productRef = FCA94E0C2DE1AE2E00ABF462 /* RNCryptor */; };
+		FCA94E102DE1B61600ABF462 /* BCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = FCA94E0F2DE1B61600ABF462 /* BCrypt */; };
+		FCCFF9822DE177BC00137ACF /* Vapor in Frameworks */ = {isa = PBXBuildFile; productRef = FCCFF9812DE177BC00137ACF /* Vapor */; };
+		FCCFF9842DE177BC00137ACF /* VaporTesting in Frameworks */ = {isa = PBXBuildFile; productRef = FCCFF9832DE177BC00137ACF /* VaporTesting */; };
+		FCCFF9862DE177BC00137ACF /* XCTVapor in Frameworks */ = {isa = PBXBuildFile; productRef = FCCFF9852DE177BC00137ACF /* XCTVapor */; };
+		FCCFF9892DE178E800137ACF /* FluentMySQLDriver in Frameworks */ = {isa = PBXBuildFile; productRef = FCCFF9882DE178E800137ACF /* FluentMySQLDriver */; };
+		FCFB172B2DDC43450093A509 /* SwifQL in Frameworks */ = {isa = PBXBuildFile; productRef = FCFB172A2DDC43450093A509 /* SwifQL */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FCFB170D2DDC43360093A509 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCFB16F72DDC43350093A509 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCFB16FE2DDC43350093A509;
+			remoteInfo = ArcheryScores;
+		};
+		FCFB17172DDC43360093A509 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCFB16F72DDC43350093A509 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCFB16FE2DDC43350093A509;
+			remoteInfo = ArcheryScores;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FCFB16FF2DDC43350093A509 /* ArcheryScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcheryScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCFB170C2DDC43360093A509 /* ArcheryScoresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArcheryScoresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCFB17162DDC43360093A509 /* ArcheryScoresUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArcheryScoresUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FCFB17012DDC43350093A509 /* ArcheryScores */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ArcheryScores;
+			sourceTree = "<group>";
+		};
+		FCFB170F2DDC43360093A509 /* ArcheryScoresTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ArcheryScoresTests;
+			sourceTree = "<group>";
+		};
+		FCFB17192DDC43360093A509 /* ArcheryScoresUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ArcheryScoresUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FCFB16FC2DDC43350093A509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA94E102DE1B61600ABF462 /* BCrypt in Frameworks */,
+				FCCFF9822DE177BC00137ACF /* Vapor in Frameworks */,
+				FCCFF9892DE178E800137ACF /* FluentMySQLDriver in Frameworks */,
+				FC689C582DE176510063638C /* MySQLKit in Frameworks */,
+				FCFB172B2DDC43450093A509 /* SwifQL in Frameworks */,
+				FCA94E0D2DE1AE2E00ABF462 /* RNCryptor in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCFB17092DDC43360093A509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCCFF9842DE177BC00137ACF /* VaporTesting in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCFB17132DDC43360093A509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCCFF9862DE177BC00137ACF /* XCTVapor in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FCFB16F62DDC43350093A509 = {
+			isa = PBXGroup;
+			children = (
+				FCFB17012DDC43350093A509 /* ArcheryScores */,
+				FCFB170F2DDC43360093A509 /* ArcheryScoresTests */,
+				FCFB17192DDC43360093A509 /* ArcheryScoresUITests */,
+				FCFB17002DDC43350093A509 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FCFB17002DDC43350093A509 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FCFB16FF2DDC43350093A509 /* ArcheryScores.app */,
+				FCFB170C2DDC43360093A509 /* ArcheryScoresTests.xctest */,
+				FCFB17162DDC43360093A509 /* ArcheryScoresUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FCFB16FE2DDC43350093A509 /* ArcheryScores */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCFB17202DDC43360093A509 /* Build configuration list for PBXNativeTarget "ArcheryScores" */;
+			buildPhases = (
+				FCFB16FB2DDC43350093A509 /* Sources */,
+				FCFB16FC2DDC43350093A509 /* Frameworks */,
+				FCFB16FD2DDC43350093A509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FCFB17012DDC43350093A509 /* ArcheryScores */,
+			);
+			name = ArcheryScores;
+			packageProductDependencies = (
+				FCFB172A2DDC43450093A509 /* SwifQL */,
+				FC689C572DE176510063638C /* MySQLKit */,
+				FCCFF9812DE177BC00137ACF /* Vapor */,
+				FCCFF9882DE178E800137ACF /* FluentMySQLDriver */,
+				FCA94E0C2DE1AE2E00ABF462 /* RNCryptor */,
+				FCA94E0F2DE1B61600ABF462 /* BCrypt */,
+			);
+			productName = ArcheryScores;
+			productReference = FCFB16FF2DDC43350093A509 /* ArcheryScores.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FCFB170B2DDC43360093A509 /* ArcheryScoresTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCFB17232DDC43360093A509 /* Build configuration list for PBXNativeTarget "ArcheryScoresTests" */;
+			buildPhases = (
+				FCFB17082DDC43360093A509 /* Sources */,
+				FCFB17092DDC43360093A509 /* Frameworks */,
+				FCFB170A2DDC43360093A509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCFB170E2DDC43360093A509 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FCFB170F2DDC43360093A509 /* ArcheryScoresTests */,
+			);
+			name = ArcheryScoresTests;
+			packageProductDependencies = (
+				FCCFF9832DE177BC00137ACF /* VaporTesting */,
+			);
+			productName = ArcheryScoresTests;
+			productReference = FCFB170C2DDC43360093A509 /* ArcheryScoresTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FCFB17152DDC43360093A509 /* ArcheryScoresUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCFB17262DDC43360093A509 /* Build configuration list for PBXNativeTarget "ArcheryScoresUITests" */;
+			buildPhases = (
+				FCFB17122DDC43360093A509 /* Sources */,
+				FCFB17132DDC43360093A509 /* Frameworks */,
+				FCFB17142DDC43360093A509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCFB17182DDC43360093A509 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FCFB17192DDC43360093A509 /* ArcheryScoresUITests */,
+			);
+			name = ArcheryScoresUITests;
+			packageProductDependencies = (
+				FCCFF9852DE177BC00137ACF /* XCTVapor */,
+			);
+			productName = ArcheryScoresUITests;
+			productReference = FCFB17162DDC43360093A509 /* ArcheryScoresUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FCFB16F72DDC43350093A509 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					FCFB16FE2DDC43350093A509 = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					FCFB170B2DDC43360093A509 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = FCFB16FE2DDC43350093A509;
+					};
+					FCFB17152DDC43360093A509 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = FCFB16FE2DDC43350093A509;
+					};
+				};
+			};
+			buildConfigurationList = FCFB16FA2DDC43350093A509 /* Build configuration list for PBXProject "ArcheryScores" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FCFB16F62DDC43350093A509;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FCFB17292DDC43450093A509 /* XCRemoteSwiftPackageReference "SwifQL" */,
+				FC689C562DE176510063638C /* XCRemoteSwiftPackageReference "mysql-kit" */,
+				FCCFF9802DE177BC00137ACF /* XCRemoteSwiftPackageReference "vapor" */,
+				FCCFF9872DE178D900137ACF /* XCRemoteSwiftPackageReference "fluent-mysql-driver" */,
+				FCA94E0B2DE1AE2E00ABF462 /* XCRemoteSwiftPackageReference "RNCryptor" */,
+				FCA94E0E2DE1B61600ABF462 /* XCRemoteSwiftPackageReference "bcrypt" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = FCFB17002DDC43350093A509 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FCFB16FE2DDC43350093A509 /* ArcheryScores */,
+				FCFB170B2DDC43360093A509 /* ArcheryScoresTests */,
+				FCFB17152DDC43360093A509 /* ArcheryScoresUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FCFB16FD2DDC43350093A509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCFB170A2DDC43360093A509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCFB17142DDC43360093A509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FCFB16FB2DDC43350093A509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCFB17082DDC43360093A509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCFB17122DDC43360093A509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FCFB170E2DDC43360093A509 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCFB16FE2DDC43350093A509 /* ArcheryScores */;
+			targetProxy = FCFB170D2DDC43360093A509 /* PBXContainerItemProxy */;
+		};
+		FCFB17182DDC43360093A509 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCFB16FE2DDC43350093A509 /* ArcheryScores */;
+			targetProxy = FCFB17172DDC43360093A509 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FCFB171E2DDC43360093A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FCFB171F2DDC43360093A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FCFB17212DDC43360093A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ddb.ArcheryScores;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FCFB17222DDC43360093A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ddb.ArcheryScores;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FCFB17242DDC43360093A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ddb.ArcheryScoresTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ArcheryScores.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ArcheryScores";
+			};
+			name = Debug;
+		};
+		FCFB17252DDC43360093A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ddb.ArcheryScoresTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ArcheryScores.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ArcheryScores";
+			};
+			name = Release;
+		};
+		FCFB17272DDC43360093A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ddb.ArcheryScoresUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ArcheryScores;
+			};
+			name = Debug;
+		};
+		FCFB17282DDC43360093A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ddb.ArcheryScoresUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ArcheryScores;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FCFB16FA2DDC43350093A509 /* Build configuration list for PBXProject "ArcheryScores" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCFB171E2DDC43360093A509 /* Debug */,
+				FCFB171F2DDC43360093A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCFB17202DDC43360093A509 /* Build configuration list for PBXNativeTarget "ArcheryScores" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCFB17212DDC43360093A509 /* Debug */,
+				FCFB17222DDC43360093A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCFB17232DDC43360093A509 /* Build configuration list for PBXNativeTarget "ArcheryScoresTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCFB17242DDC43360093A509 /* Debug */,
+				FCFB17252DDC43360093A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCFB17262DDC43360093A509 /* Build configuration list for PBXNativeTarget "ArcheryScoresUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCFB17272DDC43360093A509 /* Debug */,
+				FCFB17282DDC43360093A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FC689C562DE176510063638C /* XCRemoteSwiftPackageReference "mysql-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor/mysql-kit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.10.0;
+			};
+		};
+		FCA94E0B2DE1AE2E00ABF462 /* XCRemoteSwiftPackageReference "RNCryptor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RNCryptor/RNCryptor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
+		FCA94E0E2DE1B61600ABF462 /* XCRemoteSwiftPackageReference "bcrypt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor-community/bcrypt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+		FCCFF9802DE177BC00137ACF /* XCRemoteSwiftPackageReference "vapor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor/vapor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.115.0;
+			};
+		};
+		FCCFF9872DE178D900137ACF /* XCRemoteSwiftPackageReference "fluent-mysql-driver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor/fluent-mysql-driver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.7.1;
+			};
+		};
+		FCFB17292DDC43450093A509 /* XCRemoteSwiftPackageReference "SwifQL" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwifQL/SwifQL.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC689C572DE176510063638C /* MySQLKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC689C562DE176510063638C /* XCRemoteSwiftPackageReference "mysql-kit" */;
+			productName = MySQLKit;
+		};
+		FCA94E0C2DE1AE2E00ABF462 /* RNCryptor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCA94E0B2DE1AE2E00ABF462 /* XCRemoteSwiftPackageReference "RNCryptor" */;
+			productName = RNCryptor;
+		};
+		FCA94E0F2DE1B61600ABF462 /* BCrypt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCA94E0E2DE1B61600ABF462 /* XCRemoteSwiftPackageReference "bcrypt" */;
+			productName = BCrypt;
+		};
+		FCCFF9812DE177BC00137ACF /* Vapor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCCFF9802DE177BC00137ACF /* XCRemoteSwiftPackageReference "vapor" */;
+			productName = Vapor;
+		};
+		FCCFF9832DE177BC00137ACF /* VaporTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCCFF9802DE177BC00137ACF /* XCRemoteSwiftPackageReference "vapor" */;
+			productName = VaporTesting;
+		};
+		FCCFF9852DE177BC00137ACF /* XCTVapor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCCFF9802DE177BC00137ACF /* XCRemoteSwiftPackageReference "vapor" */;
+			productName = XCTVapor;
+		};
+		FCCFF9882DE178E800137ACF /* FluentMySQLDriver */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FluentMySQLDriver;
+		};
+		FCFB172A2DDC43450093A509 /* SwifQL */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCFB17292DDC43450093A509 /* XCRemoteSwiftPackageReference "SwifQL" */;
+			productName = SwifQL;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = FCFB16F72DDC43350093A509 /* Project object */;
+}
