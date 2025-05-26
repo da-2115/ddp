@@ -13,7 +13,7 @@
             <tr hx-target="#app" hx-swap="outerHTML" hx-get="/components/view-all-rounds?page=1&event_id={{ .Eventid }}"
                 hx-redirect="true">
                 <td>{{.Eventid}}</td>
-                <td>{{.Name}}</td>
+                <td>{{.Eventname}}</td>
                 <td>{{.Date}}</td>
             </tr>
             {{ end }}
@@ -44,8 +44,6 @@
             {{ end }}
         </tbody>
     </table>
-    <button hx-target="#app" hx-swap="outerHTML" hx-get="/components/view-all-events?page={{ .Page }}"
-        hx-redirect="true">Back</button>
 </div>
 {{ end }}
 {{ block "ranges" . }}
@@ -69,8 +67,6 @@
             {{ end }}
         </tbody>
     </table>
-    <button hx-target="#app" hx-swap="outerHTML" hx-get="/components/view-all-events?page={{ .Page }}"
-        hx-redirect="true">Back</button>
 </div>
 {{ end }}
 {{ block "ends" . }}
@@ -94,8 +90,6 @@
             {{ end }}
         </tbody>
     </table>
-    <button hx-target="#app" hx-swap="outerHTML" hx-get="/components/view-all-events?page={{ .Page }}"
-        hx-redirect="true">Back</button>
 </div>
 {{ end }}
 {{ block "scores" . }}
@@ -116,7 +110,5 @@
             {{ end }}
         </tbody>
     </table>
-    <button hx-target="#app" hx-swap="outerHTML" hx-get="/components/view-all-events?page={{ .Page }}"
-        hx-redirect="true">Back</button>
 </div>
 {{ end }}

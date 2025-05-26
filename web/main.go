@@ -84,18 +84,18 @@ func main() {
 	mux.Handle("GET /components/view-all-events", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ViewAllEventsHandler(w, r, query)
 	})))
-	mux.Handle("GET /components/view-all-rounds", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	mux.Handle("GET /components/view-all-rounds", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ViewAllRoundsHandler(w, r, query)
-	})))
-	mux.Handle("GET /components/view-all-ranges", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	}))
+	mux.Handle("GET /components/view-all-ranges", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ViewAllRangesHandler(w, r, query)
-	})))
-	mux.Handle("GET /components/view-all-ends", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	}))
+	mux.Handle("GET /components/view-all-ends", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ViewAllEndsHandler(w, r, query)
-	})))
-	mux.Handle("GET /components/view-all-scores", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	}))
+	mux.Handle("GET /components/view-all-scores", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.ViewAllScoresHandler(w, r, query)
-	})))
+	}))
 
 	// Stage-End Page - Admin
 	mux.Handle("GET /stage.html", adminAuth(static))
@@ -126,6 +126,12 @@ func main() {
 	mux.Handle("GET /components/add-range", adminAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		components.AddRangeFormHandler(w, r, query)
 	})))
+
+	// championship page - Public
+	mux.Handle("GET /championship.html", static)
+	mux.Handle("GET /components/view-championship-events", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		components.ViewChampionshipEventsHandler(w, r, query)
+	}))
 
 	// Define Server
 	srv := &http.Server{

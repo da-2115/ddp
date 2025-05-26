@@ -62,7 +62,7 @@ func AddEventHandler(w http.ResponseWriter, r *http.Request, db *sql.DB, q *data
 	qtx := q.WithTx(tx)
 
 	res, err := qtx.CreateEvent(context.Background(), data.CreateEventParams{
-		Name: eventName,
+		Eventname: eventName,
 		Date: eventDate,
 	})
 	if err != nil {

@@ -188,9 +188,9 @@ func (ns NullRoundGender) Value() (driver.Value, error) {
 }
 
 type Championship struct {
-	Championshipid int32  `json:"championshipid"`
-	Eventid        int32  `json:"eventid"`
-	Name           string `json:"name"`
+	Championshipid   int32  `json:"championshipid"`
+	Eventid          int32  `json:"eventid"`
+	Championshipname string `json:"championshipname"`
 }
 
 type End struct {
@@ -202,9 +202,9 @@ type End struct {
 }
 
 type Event struct {
-	Eventid int32     `json:"eventid"`
-	Name    string    `json:"name"`
-	Date    time.Time `json:"date"`
+	Eventid   int32     `json:"eventid"`
+	Eventname string    `json:"eventname"`
+	Date      time.Time `json:"date"`
 }
 
 type Member struct {

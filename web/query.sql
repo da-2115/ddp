@@ -37,6 +37,13 @@ FROM Event
 LIMIT ?
 OFFSET ?;
 
+-- name: GetChampionshipEvents :many
+SELECT *
+FROM Event e
+JOIN Championship c ON c.EventID = e.EventID
+LIMIT ?
+OFFSET ?;
+
 -- name: GetRoundByEvent :many
 SELECT *
 FROM `Round`
@@ -148,7 +155,7 @@ OFFSET ?;
 
 -- name: CreateEvent :execresult
 INSERT INTO Event (
-    Name, Date
+    EventName, Date
 )
 VALUES (
     ?, ?
