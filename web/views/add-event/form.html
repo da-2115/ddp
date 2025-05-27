@@ -11,7 +11,7 @@
             <div id="round" hx-get="/components/add-round?num=1" hx-swap="outerHTML" hx-target="#round"
                 hx-trigger="load"></div>
         </div>
-        <button id="roundButton" hx-get="/components/add-round?num=2" hx-target="#rounds" hx-swap="beforeend"
+        <button class="range-button" id="roundButton" hx-get="/components/add-round?num=2" hx-target="#rounds" hx-swap="beforeend"
             hx-on:click="incRound()">Add Round</button>
         <input type="submit" value="Submit">
     </form>
@@ -40,7 +40,7 @@
         <option value="50Plus">50 Plus</option>
         <option value="60Plus">60 Plus</option>
         <option value="70Plus">70 Plus</option>
-    </select>
+    </select><br>
 
     <label for="round-{{ . }}-division">Round Divison:</label>
     <select class="text" name="round-{{ . }}-division" id="round-{{ . }}-division" required>
@@ -61,7 +61,7 @@
 
     <div id="ranges-{{.}}">
     </div>
-    <button id="rangeButton_{{ . }}" hx-get="/components/add-range?num={{.}}" hx-target="#ranges-{{.}}"
+    <button class="range-button" id="rangeButton_{{ . }}" hx-get="/components/add-range?num={{.}}" hx-target="#ranges-{{.}}"
         hx-swap="beforeend">Add
         Range</button>
 </div>

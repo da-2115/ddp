@@ -90,6 +90,34 @@ nav div.right {
     overflow: hidden;
 }
 
+.submit-body {
+    overflow: hidden;
+}
+
+.submit-form {
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+}
+
+.submit-form label {
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.submit-form input.text {
+    margin-top: 0.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.range-button {
+    margin-bottom: .5em;
+}
+
 div#app {
     width: 75%;
     margin-left: auto;
