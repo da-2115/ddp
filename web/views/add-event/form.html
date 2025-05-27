@@ -2,10 +2,10 @@
 <div id="app" class="form-container">
     <form class="login-form" method="post" action="/api/add-event">
         <label for="event-name">Event Name:</label>
-        <input class="text" id="event-name" name="event-name" type="text">
+        <input class="text" id="event-name" name="event-name" type="text" required>
 
         <label for="event-date">Event Date:</label>
-        <input class="text" id="event-date" name="event-date" type="date">
+        <input class="text" id="event-date" name="event-date" type="date" required>
 
         <div id="rounds" hx-on="htmx:afterSwap incRound()">
             <div id="round" hx-get="/components/add-round?num=1" hx-swap="outerHTML" hx-target="#round"
@@ -69,8 +69,8 @@
 {{ block "range" . }}
 <div id="range-{{ . }}">
     <label for="range-{{ . }}-distance">Distance:</label>
-    <input id="range-{{ . }}-distance" name="range-{{ . }}-distance[]" type="number">
+    <input id="range-{{ . }}-distance" name="range-{{ . }}-distance[]" type="number" required>
     <label for="range-{{ . }}-target">Target Size:</label>
-    <input id="range-{{ . }}-target" name="range-{{ . }}-target[]" type="number">
+    <input id="range-{{ . }}-target" name="range-{{ . }}-target[]" type="number" required>
 </div>
 {{ end }}
