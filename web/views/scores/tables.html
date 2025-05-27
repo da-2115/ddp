@@ -13,7 +13,7 @@
             <tr hx-target="#app" hx-swap="outerHTML" hx-get="/components/scores?page=1&qType=round&event_id={{ .Eventid }}"
                 hx-redirect="true">
                 <td>{{.Eventid}}</td>
-                <td>{{.EventName}}</td>
+                <td>{{.Eventname}}</td>
                 <td>{{.Date}}</td>
             </tr>
             {{ end }}
